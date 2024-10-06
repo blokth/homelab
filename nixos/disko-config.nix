@@ -51,26 +51,6 @@
           };
         };
       };
-      data = {
-        type = "disk";
-        device = "/dev/sdc";
-        content = {
-          type = "gpt";
-          partitions = {
-            root = {
-              size = "100%";
-              content = {
-                type = "btrfs";
-                extraArgs = [ "-f" ]; # Override existing partition
-                # Subvolumes must set a mountpoint in order to be mounted,
-                # unless their parent is mounted
-
-                mountpoint = "/data";
-              };
-            };
-          };
-        };
-      };
     };
   };
 }
