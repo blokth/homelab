@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: infrastructure
+  name: longhorn-system
   labels:
-    app.kubernetes.io/component: infrastructure
+    app.kubernetes.io/component: longhorn-system
     pod-security.kubernetes.io/enforce: privileged
