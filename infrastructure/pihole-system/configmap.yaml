@@ -380,7 +380,19 @@ data:
           #   - cname=cname record,dns record
 
         # -- list of adlists to import during initial start of the container
-        adlists: {}
+        adlists:
+          - https://nsfw.oisd.nl
+          - https://v.firebog.net/hosts/Easyprivacy.txt
+          - https://small.oisd.nl/rpz
+          - https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/domains/native.amazon.txt
+          - https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/domains/native.apple.txt
+          - https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/domains/native.winoffice.txt
+          - https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/domains/native.tiktok.extended.txt
+          - https://raw.githubusercontent.com/lassekongo83/Frellwits-filter-lists/master/Frellwits-Swedish-Hosts-File.txt
+          - https://v.firebog.net/hosts/AdguardDNS.txt
+          - https://urlhaus.abuse.ch/downloads/hostfile
+          - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/gambling-onlydomains.txt
+
           # If you want to provide blocklists, add them here.
           # - https://hosts-file.net/grm.txt
           # - https://reddestdream.github.io/Projects/MinimalHosts/etc/MinimalHostsBlocker/minimalhosts
