@@ -12,7 +12,6 @@ spec:
         kind: HelmRepository
         name: mojo2600
       interval: 60m
-      valuesFrom:
-        - kind: ConfigMap
-          name: pihole-configmap
-          valuesKey: values.yaml
+  valuesFrom:
+    - kind: ConfigMap
+      name: pihole-configmap
