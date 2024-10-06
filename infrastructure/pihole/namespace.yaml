@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pihole-system
+  labels:
+    app.kubernetes.io/component: pihole-system
+    pod-security.kubernetes.io/enforce: privileged
