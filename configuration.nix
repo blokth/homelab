@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./services/traefik/docker-compose.nix
       ./services/whoami/docker-compose.nix
+      ./services/pihole/docker-compose.nix
     ];
 
   nix = {
@@ -51,6 +52,19 @@
           ${pkgs.docker}/bin/docker network create lan ; 
       fi
     '';
+
+  environment.etc."dnsmasq.d" = {
+    "07-dhcp-options.conf" = {
+      text = ''
+      dhcp-option=option:dns-server,192.168.88.189 # Host IP address
+    '';
+    };
+    "10-lan_records.conf" = {
+      text = ''
+      address=/.lan/192.168.0.204 # From https://fmlab.no/homelab/pihole/
+    '';
+    };
+  };
 
   services.openiscsi = {
     enable = true;
