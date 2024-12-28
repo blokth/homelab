@@ -60,6 +60,11 @@
     "dnsmasq.d/10-lan_records.conf".text = ''
       address=/.lan/192.168.0.204 # From https://fmlab.no/homelab/pihole/
     '';
+    "pihole/custom.list".text = ''
+      192.168.88.189 traefik.local
+      192.168.88.189 pihole.local
+      192.168.88.189 whoami.local
+    '';
   };
 
   services.openiscsi = {
