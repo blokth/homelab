@@ -42,11 +42,13 @@ services:
       - dhcphelper
 
   dhcphelper:
-    image: noamokman/dhcp-helper
-    container_name: dhcp-helper
+    image: homeall/dhcphelper:latest
+    container_name: dhcphelper
     restart: unless-stopped
     network_mode: "host"
-    command: -s 172.31.0.100
+    environment:
+      IP: '172.31.0.100'
+      TZ: 'Europe/Berlin'
     cap_add:
       - NET_ADMIN
 

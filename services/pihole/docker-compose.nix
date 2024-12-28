@@ -10,16 +10,19 @@
   virtualisation.oci-containers.backend = "docker";
 
   # Containers
-  virtualisation.oci-containers.containers."dhcp-helper" = {
-    image = "noamokman/dhcp-helper";
-    cmd = [ "-s" "172.31.0.100" ];
+  virtualisation.oci-containers.containers."dhcphelper" = {
+    image = "homeall/dhcphelper:latest";
+    environment = {
+      "IP" = "172.31.0.100";
+      "TZ" = "Europe/Berlin";
+    };
     log-driver = "journald";
     extraOptions = [
       "--cap-add=NET_ADMIN"
       "--network=host"
     ];
   };
-  systemd.services."docker-dhcp-helper" = {
+  systemd.services."docker-dhcphelper" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
       RestartMaxDelaySec = lib.mkOverride 90 "1m";
@@ -66,7 +69,7 @@
       "traefik.http.services.pihole.loadbalancer.server.port" = "80";
     };
     dependsOn = [
-      "dhcp-helper"
+      "dhcphelper"
     ];
     log-driver = "journald";
     extraOptions = [

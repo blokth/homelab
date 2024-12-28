@@ -54,12 +54,6 @@
     '';
 
   environment.etc = {
-    "dnsmasq.d/07-dhcp-options.conf".text = ''
-      dhcp-option=option:dns-server,192.168.88.189 # Host IP address
-    '';
-    "dnsmasq.d/10-lan_records.conf".text = ''
-      address=/.lan/192.168.0.204 # From https://fmlab.no/homelab/pihole/
-    '';
     "pihole/custom.list".text = ''
       192.168.88.189 traefik.local
       192.168.88.189 pihole.local
