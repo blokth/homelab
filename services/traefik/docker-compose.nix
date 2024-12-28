@@ -17,14 +17,9 @@
     ];
     ports = [
       "80:80/tcp"
+      "8080:8080/tcp"
     ];
     cmd = [ "--api.insecure=true" "--providers.docker=true" "--providers.docker.network=lan" "--entrypoints.web.address=:80" ];
-    labels = {
-      "traefik.enable" = "true";
-      "traefik.http.routers.api.entrypoints" = "web";
-      "traefik.http.routers.api.rule" = "Host(`traefik.local`)";
-      "traefik.http.routers.api.service" = "api@internal";
-    };
     log-driver = "journald";
     extraOptions = [
       "--network-alias=traefik"
