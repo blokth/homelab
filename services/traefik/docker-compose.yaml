@@ -4,7 +4,7 @@ services:
     container_name: "traefik"
     command:
       - "--providers.docker=true"
-      - "--providers.docker.network=traefik-net"  # replace with your configured Docker network name
+      - "--providers.docker.network=lan"  # replace with your configured Docker network name
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
       - "--entrypoints.websecure.address=:443"
