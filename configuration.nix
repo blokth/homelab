@@ -55,9 +55,9 @@
 
   environment.etc = {
     "pihole/custom.list".text = ''
-      192.168.88.189 traefik.local
-      192.168.88.189 pihole.local
-      192.168.88.189 whoami.local
+      192.168.88.189 traefik.home
+      192.168.88.189 pihole.home
+      192.168.88.189 whoami.home
     '';
   };
 
