@@ -8,7 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./services/docker-compose.nix
+      ./services/traefik/docker-compose.nix
+      ./services/whoami/docker-compose.nix
     ];
 
   nix = {
@@ -44,6 +45,10 @@
   };
   virtualisation.docker.logDriver = "json-file";
   virtualisation.oci-containers.backend = "docker";
+
+  system.activationScripts.mkLAN = ''
+      ${pkgs.docker}/bin/docker network create lan
+    '';
 
   services.openiscsi = {
     enable = true;
