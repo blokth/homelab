@@ -14,7 +14,7 @@ services:
       PIHOLE_DNS_: 9.9.9.9;149.112.112.112;1.1.1.1
       DNSSEC: 'true'
       ServerIP: 192.168.88.189 # Actual server IP. Matches DHCP conf file IP
-      VIRTUAL_HOST: pihole.home # Same as port traefik config
+      VIRTUAL_HOST: pihole.local # Same as port traefik config
       DNSMASQ_LISTENING: all
       DHCP_ACTIVE: 'true'
       DHCP_START: 192.168.88.192
@@ -24,8 +24,8 @@ services:
       WEBTHEME: default-dark
       PIHOLE_DOMAIN: lan
     volumes:
-      - '/services/pihole/pihole:/etc/pihole/'
-      - '/services/pihole/dnsmasq.d:/etc/dnsmasq.d/'
+      - './pihole:/etc/pihole/'
+      - './dnsmasq.d:/etc/dnsmasq.d/'
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -35,20 +35,18 @@ services:
         ipv4_address: '172.31.0.100'
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.pihole.rule=Host(`pihole.home`)"
+      - "traefik.http.routers.pihole.rule=Host(`pihole.local`)"
       - "traefik.http.services.pihole.loadbalancer.server.port=80"
       - "traefik.http.routers.pihole.entrypoints=web"
     depends_on:
       - dhcphelper
 
   dhcphelper:
-    image: homeall/dhcphelper:latest
-    container_name: dhcphelper
+    image: noamokman/dhcp-helper
+    container_name: dhcp-helper
     restart: unless-stopped
     network_mode: "host"
-    environment:
-      IP: '172.31.0.100'
-      TZ: 'Europe/Berlin'
+    command: -s 172.31.0.100
     cap_add:
       - NET_ADMIN
 

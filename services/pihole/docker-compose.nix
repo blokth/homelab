@@ -10,19 +10,16 @@
   virtualisation.oci-containers.backend = "docker";
 
   # Containers
-  virtualisation.oci-containers.containers."dhcphelper" = {
-    image = "homeall/dhcphelper:latest";
-    environment = {
-      "IP" = "172.31.0.100";
-      "TZ" = "Europe/Berlin";
-    };
+  virtualisation.oci-containers.containers."dhcp-helper" = {
+    image = "noamokman/dhcp-helper";
+    cmd = [ "-s" "172.31.0.100" ];
     log-driver = "journald";
     extraOptions = [
       "--cap-add=NET_ADMIN"
       "--network=host"
     ];
   };
-  systemd.services."docker-dhcphelper" = {
+  systemd.services."docker-dhcp-helper" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
       RestartMaxDelaySec = lib.mkOverride 90 "1m";
@@ -50,13 +47,13 @@
       "PIHOLE_DOMAIN" = "lan";
       "ServerIP" = "192.168.88.189";
       "TZ" = "Europe/Berlin";
-      "VIRTUAL_HOST" = "pihole.home";
+      "VIRTUAL_HOST" = "pihole.local";
       "WEBPASSWORD" = "PASSWORD";
       "WEBTHEME" = "default-dark";
     };
     volumes = [
-      "/services/pihole/dnsmasq.d:/etc/dnsmasq.d:rw"
-      "/services/pihole/pihole:/etc/pihole:rw"
+      "/Users/andrii/homelab/services/pihole/dnsmasq.d:/etc/dnsmasq.d:rw"
+      "/Users/andrii/homelab/services/pihole/pihole:/etc/pihole:rw"
     ];
     ports = [
       "53:53/tcp"
@@ -65,11 +62,11 @@
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.pihole.entrypoints" = "web";
-      "traefik.http.routers.pihole.rule" = "Host(`pihole.home`)";
+      "traefik.http.routers.pihole.rule" = "Host(`pihole.local`)";
       "traefik.http.services.pihole.loadbalancer.server.port" = "80";
     };
     dependsOn = [
-      "dhcphelper"
+      "dhcp-helper"
     ];
     log-driver = "journald";
     extraOptions = [
