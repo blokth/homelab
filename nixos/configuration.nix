@@ -2,11 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, meta, ... }:
+{  pkgs, meta, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
     ];
 
   nix = {
@@ -40,23 +41,8 @@
   systemd.tmpfiles.rules = [
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
   ];
+  virtualisation.docker.enable = true;
   virtualisation.docker.logDriver = "json-file";
-
-  services.k3s = {
-    enable = true;
-    role = "server";
-    tokenFile = /var/lib/rancher/k3s/server/token;
-    extraFlags = toString ([
-	    "--write-kubeconfig-mode \"0644\""
-	    "--cluster-init"
-	    "--disable servicelb"
-	    "--disable traefik"
-	    "--disable local-storage"
-    ] ++ (if meta.hostname == "homelab-0" then [] else [
-	      "--server https://homelab-0:6443"
-    ]));
-    clusterInit = (meta.hostname == "homelab-0");
-  };
 
   services.openiscsi = {
     enable = true;
@@ -66,7 +52,10 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.def4alt = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ 
+      "wheel"
+      "docker" 
+    ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -80,8 +69,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     neovim
-     k3s
      cifs-utils
      nfs-utils
      git
