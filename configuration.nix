@@ -47,7 +47,9 @@
   virtualisation.oci-containers.backend = "docker";
 
   system.activationScripts.mkLAN = ''
-      ${pkgs.docker}/bin/docker network create lan
+      if [ -z $(docker network ls --filter name=^lan$ --format="{{ .Name }}") ] ; then 
+          ${pkgs.docker}/bin/docker network create lan ; 
+      fi
     '';
 
   services.openiscsi = {
