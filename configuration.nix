@@ -37,12 +37,12 @@
     #useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # Fixes for longhorn
-  systemd.tmpfiles.rules = [
-    "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
-  ];
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    autoPrune.enable = true;
+  };
   virtualisation.docker.logDriver = "json-file";
+  virtualisation.oci-containers.backend = "docker";
 
   services.openiscsi = {
     enable = true;
