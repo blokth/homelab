@@ -66,6 +66,8 @@
       "wheel"
       "docker"
       "dialout"
+      "tty"
+      "uucp"
     ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
