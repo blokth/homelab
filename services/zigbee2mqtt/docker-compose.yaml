@@ -1,5 +1,6 @@
 services:
   mqtt:
+      container_name: mqtt
       image: eclipse-mosquitto:2.0
       restart: unless-stopped
       volumes:
