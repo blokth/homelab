@@ -11,7 +11,7 @@ let
 
   findServices = builtins.filter (path:
     builtins.pathExists (path + "/docker-compose.yaml")
-  ) (builtins.attrValues (listDirectories ./services));
+  ) (listDirectories ./services);
 
   generateNix = projectDir: ''
     cd ${projectDir}

@@ -8,7 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./generate-compose.nix
+      ./services/pihole/docker-compose.nix
+      ./services/traefik/docker-compose.nix
+      ./services/whoami/docker-compose.nix
     ];
 
   nix = {
