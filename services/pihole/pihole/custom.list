@@ -1,3 +1,3 @@
-192.168.88.189 traefik.local
-192.168.88.189 pihole.local
-192.168.88.189 whoami.local
+192.168.88.189 traefik.home.arpa
+192.168.88.189 pihole.home.arpa
+192.168.88.189 whoami.home.arpa

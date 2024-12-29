@@ -4,7 +4,7 @@ services:
     container_name: "simple-service"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.local`)"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.home.arpa`)"
       - "traefik.http.routers.whoami.entrypoints=web"
     networks:
         - lan
