@@ -11,7 +11,7 @@ let
       hasComposeFile = folder: builtins.pathExists (dir + "/${folder}/docker-compose.yaml");
     in
     map (folder: dir + "/${folder}")
-      (lib.filterAttrs (n: v: isDir n && hasComposeFile n) paths));
+      (lib.filterAttrs (n: v: isDir n && hasComposeFile n) paths);
 
   # Run compose2nix directly in project directory
   generateNixFromCompose = projectDir: pkgs.runCommand "compose2nix-${builtins.baseNameOf projectDir}" { } ''
@@ -26,4 +26,5 @@ let
 
 in {
   imports = services;
+  system.activationScripts.generateCompose = lib.mkForce (lib.concatStringsSep "\n" (map generateNixFromCompose (findComposeProjects composeRoot)));
 }
