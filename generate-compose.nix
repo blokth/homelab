@@ -5,7 +5,7 @@ let
     let
       contents = builtins.readDir folder;
 
-      directories = lib.filter (entry: builtins.isAttrs (builtins.readDir (folder + "/" + entry))) (lib.attrValues contents);
+      directories = lib.filter (entry: builtins.isAttrs (builtins.readDir (folder + "/" + entry))) (contents);
     in
       directories;
 
