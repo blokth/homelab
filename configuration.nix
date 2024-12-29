@@ -11,6 +11,7 @@
       ./services/pihole/docker-compose.nix
       ./services/traefik/docker-compose.nix
       ./services/whoami/docker-compose.nix
+      ./services/home-assistant/docker-compose.nix
     ];
 
   nix = {

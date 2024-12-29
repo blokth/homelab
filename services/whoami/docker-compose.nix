@@ -15,7 +15,7 @@
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.whoami.entrypoints" = "web";
-      "traefik.http.routers.whoami.rule" = "Host(`whoami.home`)";
+      "traefik.http.routers.whoami.rule" = "Host(`whoami.home.arpa`)";
     };
     log-driver = "journald";
     extraOptions = [

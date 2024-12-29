@@ -22,7 +22,7 @@
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.api.entrypoints" = "web";
-      "traefik.http.routers.api.rule" = "Host(`traefik.local`)";
+      "traefik.http.routers.api.rule" = "Host(`traefik.home.arpa`)";
       "traefik.http.routers.api.service" = "api@internal";
     };
     log-driver = "journald";

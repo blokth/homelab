@@ -50,6 +50,9 @@ services:
     cap_add:
       - NET_ADMIN
 
+volumes:
+  pihole_data:
+
 networks: 
   backend:
     ipam:

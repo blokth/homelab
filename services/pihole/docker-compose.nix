@@ -47,7 +47,7 @@
       "PIHOLE_DOMAIN" = "lan";
       "ServerIP" = "192.168.88.189";
       "TZ" = "Europe/Berlin";
-      "VIRTUAL_HOST" = "pihole.home";
+      "VIRTUAL_HOST" = "pihole.home.arpa";
       "WEBPASSWORD" = "PASSWORD";
       "WEBTHEME" = "default-dark";
     };
@@ -62,7 +62,7 @@
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.pihole.entrypoints" = "web";
-      "traefik.http.routers.pihole.rule" = "Host(`pihole.home`)";
+      "traefik.http.routers.pihole.rule" = "Host(`pihole.home.arpa`)";
       "traefik.http.services.pihole.loadbalancer.server.port" = "80";
     };
     dependsOn = [
