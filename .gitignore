@@ -1,0 +1,3 @@
+services/pihole/pihole/*
+services/pihole/dnsmasq.d/*
+!services/pihole/pihole/custom.list
