@@ -19,7 +19,7 @@ services:
       - SYS_ADMIN
     network_mode: "host"
     extra_hosts:
-      - "mqtt:172.21.0.2"
+      - "mqtt:172.19.0.10"
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"

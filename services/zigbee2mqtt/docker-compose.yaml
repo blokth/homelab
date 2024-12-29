@@ -9,6 +9,10 @@ services:
         lan:
           ipv4_address: 172.19.0.10
       command: 'mosquitto -c /mosquitto-no-auth.conf'
+      labels:
+        - "traefik.enable=true"
+        - "traefik.tcp.routers.mosquitto-MQTT.rule=HostSNI(`*`)"
+        - "traefik.tcp.routers.mosquitto-MQTT.entrypoints=mqtt"
 
   zigbee2mqtt:
       container_name: zigbee2mqtt
