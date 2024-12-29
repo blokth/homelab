@@ -1,9 +1,16 @@
 { pkgs, lib, ... }:
 
-let
+let 
+  listDirectories = folder: 
+    let
+      contents = builtins.readDir folder;
+      directories = lib.filter (entry: builtins.isDirectory (folder + "/" + entry)) (lib.attrValues contents);
+    in
+      directories;
+
   findServices = builtins.filter (path:
     builtins.pathExists (path + "/docker-compose.yaml")
-  ) (builtins.attrValues (lib.filesystem.listDirectoriesRecursive ./services));
+  ) (builtins.attrValues (listDirectories ./services));
 
   generateNix = projectDir: ''
     cd ${projectDir}
