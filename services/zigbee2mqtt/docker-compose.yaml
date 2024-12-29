@@ -6,7 +6,7 @@ services:
           - './mosquitto-data:/mosquitto'
       networks:
         lan:
-          ipv4_address: 172.21.0.2
+          ipv4_address: 172.19.0.10
       command: 'mosquitto -c /mosquitto-no-auth.conf'
 
   zigbee2mqtt:
@@ -15,7 +15,7 @@ services:
       image: koenkk/zigbee2mqtt
       networks:
         lan:
-          ipv4_address: 172.21.0.4
+          ipv4_address: 172.19.0.11
       volumes:
         - ./zigbee2mqtt-data:/app/data
         - /run/udev:/run/udev:ro
