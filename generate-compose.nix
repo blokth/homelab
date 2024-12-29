@@ -19,12 +19,21 @@ let
     ${pkgs.compose2nix} --project ${builtins.baseNameOf projectDir} --runtime docker
   '';
 
-  # Import the docker-compose.nix files from each project directory
-  services = map (projectDir:
-    import (projectDir + "/docker-compose.nix")
+  # Collect paths to docker-compose.nix files
+  generatedComposeFiles = map (projectDir:
+    let
+      composeFile = projectDir + "/docker-compose.nix";
+    in
+    if builtins.pathExists composeFile then
+      composeFile
+    else
+      null
   ) (findComposeProjects composeRoot);
 
+  # Remove nulls from the list (if a service hasn't generated a nix file yet)
+  validImports = lib.filter (x: x != null) generatedComposeFiles;
+
 in {
-  imports = services;
+  imports = validImports;
   system.activationScripts.generateCompose = lib.mkForce (lib.concatStringsSep "\n" (map generateNixFromCompose (findComposeProjects composeRoot)));
 }
