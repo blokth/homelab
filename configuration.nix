@@ -12,6 +12,7 @@
       ./services/traefik/docker-compose.nix
       ./services/whoami/docker-compose.nix
       ./services/home-assistant/docker-compose.nix
+      ./services/zigbee2mqtt/docker-compose.nix
     ];
 
   nix = {
