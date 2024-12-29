@@ -8,9 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./services/traefik/docker-compose.nix
-      ./services/whoami/docker-compose.nix
-      ./services/pihole/docker-compose.nix
+      ./services/generate-compose.nix
     ];
 
   nix = {
@@ -86,6 +84,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    compose2nix
      vim
      cifs-utils
      nfs-utils
