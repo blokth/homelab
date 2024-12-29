@@ -53,14 +53,6 @@
       fi
     '';
 
-  environment.etc = {
-    "pihole/custom.list".text = ''
-      192.168.88.189 traefik.home
-      192.168.88.189 pihole.home
-      192.168.88.189 whoami.home
-    '';
-  };
-
   services.openiscsi = {
     enable = true;
     name = "iqn.2016-04.com.open-iscsi:${meta.hostname}";
