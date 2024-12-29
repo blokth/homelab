@@ -17,8 +17,10 @@
     ];
     ports = [
       "80:80/tcp"
+      "8883:8883/tcp"
+      "1883:1883/tcp"
     ];
-    cmd = [ "--api.insecure=true" "--providers.docker=true" "--providers.docker.network=lan" "--entrypoints.web.address=:80" ];
+    cmd = [ "--api.insecure=true" "--providers.docker=true" "--providers.docker.network=lan" "--entrypoints.web.address=:80" "--entrypoints.mqtt.address=:1883" "--entrypoints.mqtts.address=:8883" ];
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.api.entrypoints" = "web";

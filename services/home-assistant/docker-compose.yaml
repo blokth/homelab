@@ -2,8 +2,6 @@ services:
   homeassistant:
     container_name: home-assistant
     restart: always
-    ports:
-      - 8123:8123
     volumes:
       - ./config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -20,6 +18,8 @@ services:
       - NET_BIND_SERVICE
       - SYS_ADMIN
     network_mode: "host"
+    extra_hosts:
+      - "mqtt:172.21.0.2"
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"

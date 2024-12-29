@@ -19,9 +19,6 @@
       "/Users/andrii/homelab/services/home-assistant/config:/config:rw"
       "/etc/localtime:/etc/localtime:ro"
     ];
-    ports = [
-      "8123:8123/tcp"
-    ];
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.home-assistant.entrypoints" = "web";
@@ -30,6 +27,7 @@
     };
     log-driver = "journald";
     extraOptions = [
+      "--add-host=mqtt:172.21.0.2"
       "--cap-add=NET_ADMIN"
       "--cap-add=NET_BIND_SERVICE"
       "--cap-add=SYS_ADMIN"
