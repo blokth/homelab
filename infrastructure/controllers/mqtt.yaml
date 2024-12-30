@@ -39,8 +39,7 @@ metadata:
   namespace: zigbee2mqtt
 spec:
   entryPoints:
-    mqtt:
-      address: ":1883"
+    - mqtt
   routes:
   - kind: Rule
     match: HostSNI(`*`)
