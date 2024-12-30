@@ -17,7 +17,7 @@ spec:
   dependsOn:
     - name: pihole
   interval: 30m
-  sourceRef:
+  chartRef:
     kind: OCIRepository
     name: external-dns
     namespace: pihole-system
