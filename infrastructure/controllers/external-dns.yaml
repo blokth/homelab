@@ -2,11 +2,11 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: bitnami
+  name: external-dns
   namespace: pihole-system
 spec:
   interval: 24h
-  url: https://charts.bitnami.com/bitnami
+  url: https://kubernetes-sigs.github.io/external-dns/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -23,7 +23,7 @@ spec:
       version: "*"
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: external-dns
         namespace: pihole-system
       interval: 12h
   values:
