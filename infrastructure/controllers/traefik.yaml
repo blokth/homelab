@@ -39,52 +39,8 @@ spec:
         namespace: traefik
       interval: 12h
   values:
-    deployment:
-      enabled: true
-    service:
-      enabled: true
-      type: LoadBalancer
-      ports:
-        web:
-          port: 80
-        mqtt:
-          port: 1883
-        mqtts:
-          port: 8883
-    ingressRoute:
-      dashboard:
-        enabled: true
-        matchRule: Host(`traefik.home`)
-        entryPoints:
-          - web
-    entryPoints:
-      web:
-        address: ":80"
-      mqtt:
-        address: ":1883"
-      mqtts:
-        address: ":8883"
     providers:
-      kubernetesCRD:
-        enabled: true
-      kubernetesIngress:
-        enabled: true
-    ports:
-      web:
-        expose: true
-        port: 80
-      mqtt:
-        expose: true
-        port: 1883
-      mqtts:
-        expose: true
-        port: 8883
-    logs:
-      general:
-        level: INFO
-    ingressClass:
-      enabled: true
-      isDefaultClass: true
+      kubernetesIngress: {}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
