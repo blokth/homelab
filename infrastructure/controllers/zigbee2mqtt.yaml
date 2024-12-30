@@ -19,21 +19,18 @@ spec:
       - name: mqtt
     targetNamespace: zigbee2mqtt
     chart:
-        spec:
-            chart: zigbee2mqtt
-            version: '*'
-            sourceRef:
-                kind: HelmRepository
-                name: zigbee2mqtt
-                namespace: zigbee2mqtt
-            interval: 10m
+      spec:
+        chart: zigbee2mqtt
+        version: '*'
+        sourceRef:
+          kind: HelmRepository
+          name: zigbee2mqtt
+          namespace: zigbee2mqtt
+        interval: 10m
     values:
       ingress:
         enabled: true
         ingressClassName: "traefik"
-      statefulset:
-        storage:
-          enabled: true
       zigbee2mqtt:
         mqtt:
           server: mqtt://mqtt
