@@ -31,10 +31,6 @@ spec:
       ingress:
         enabled: true
         ingressClassName: "traefik"
-      statefulset:
-        storage:
-          enabled: true
-          starageClassName: longhorn
       zigbee2mqtt:
         mqtt:
           server: mqtt://mqtt
