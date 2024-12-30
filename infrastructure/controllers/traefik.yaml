@@ -40,6 +40,6 @@ spec:
         matchRule: Host(`traefik.home`)
     providers:
       kubernetesCRD:
-        ingressClass: traefik
+        enabled: true
       kubernetesIngress:
-        ingressClass: traefik
+        enabled: true
