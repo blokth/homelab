@@ -66,6 +66,8 @@ spec:
     - match: Host(`pihole.home`)
       kind: Rule
       services:
-        - name: pihole
+        - kind: Service
+          name: pihole-web
+          namespace: pihole-system
           port: 80
 

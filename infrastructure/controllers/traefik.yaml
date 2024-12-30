@@ -54,7 +54,7 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
-        matchRule: Host(`traefik.def4alt.com`)
+        matchRule: Host(`traefik.home`)
         entryPoints:
           - web
     entryPoints:
@@ -69,8 +69,6 @@ spec:
         enabled: true
       kubernetesIngress:
         enabled: true
-      docker:
-        enabled: false  # Docker provider disabled in Kubernetes context
     ports:
       web:
         expose: true
