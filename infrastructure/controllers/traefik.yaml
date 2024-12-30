@@ -39,8 +39,13 @@ spec:
         namespace: traefik
       interval: 12h
   values:
+    ingressClass:
+      name: traefik
     providers:
-      kubernetesIngress: {}
+      kubernetesCRD:
+        ingressClass: traefik
+      kubernetesIngress:
+        ingressClass: traefik
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute

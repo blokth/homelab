@@ -38,6 +38,7 @@ spec:
       enabled: true
     ingress:
       enabled: true
+      ingressClassName: traefik
       hosts:
         - "pihole.home"
     serviceWeb:
