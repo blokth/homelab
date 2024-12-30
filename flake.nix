@@ -3,14 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # Disko
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, disko, ... }@inputs: let
     nodes = [
-      "homelab"
+      "perun"
     ];
   in {
     nixosConfigurations = builtins.listToAttrs (map (name: {

@@ -29,7 +29,7 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080"
-        - "traefik.http.routers.zigbee2mqtt.rule=Host(`zigbee.home.arpa`)"
+        - "traefik.http.routers.zigbee2mqtt.rule=Host(`zigbee.def4alt.com`)"
         - "traefik.http.routers.zigbee2mqtt.entrypoints=web"
       devices:
           - /dev/ttyUSB0:/dev/ttyUSB0

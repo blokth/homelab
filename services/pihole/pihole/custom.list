@@ -1,5 +1,5 @@
-192.168.88.189 traefik.home.arpa
-192.168.88.189 pihole.home.arpa
-192.168.88.189 whoami.home.arpa
-192.168.88.189 home-assistant.home.arpa
-192.168.88.189 zigbee.home.arpa
+192.168.88.189 traefik.def4alt.com
+192.168.88.189 pihole.def4alt.com
+192.168.88.189 whoami.def4alt.com
+192.168.88.189 home.def4alt.com
+192.168.88.189 zigbee.def4alt.com

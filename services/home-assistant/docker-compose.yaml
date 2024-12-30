@@ -8,7 +8,7 @@ services:
     environment:
       - TZ=Europe/Berlin
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://192.168.88.189:8123"] #host
+      test: ["CMD", "curl", "-f", "http://home.def4alt.com:8123"] #host
       interval: "30s"
       timeout: "10s"
       retries: "10"
@@ -23,6 +23,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
-      - "traefik.http.routers.home-assistant.rule=Host(`home-assistant.home.arpa`)"
+      - "traefik.http.routers.home-assistant.rule=Host(`home.def4alt.com`)"
       - "traefik.http.routers.home-assistant.entrypoints=web"
     image: homeassistant/home-assistant:latest

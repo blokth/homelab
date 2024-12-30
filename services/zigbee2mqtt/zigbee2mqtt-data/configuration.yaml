@@ -7,7 +7,7 @@ serial:
   port: /dev/ttyUSB0
   adapter: ember
 frontend:
-  url: https://zigbee.home.arpa
+  url: https://zigbee.def4alt.com
   port: 8080
 advanced:
   network_key:

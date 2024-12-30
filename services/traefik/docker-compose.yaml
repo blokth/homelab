@@ -19,7 +19,7 @@ services:
       - lan
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`traefik.home.arpa`)"
+      - "traefik.http.routers.api.rule=Host(`traefik.def4alt.com`)"
       - "traefik.http.routers.api.service=api@internal"
       - "traefik.http.routers.api.entrypoints=web"
 
