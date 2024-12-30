@@ -17,14 +17,12 @@ metadata:
 spec:
   dependsOn:
     - name: pihole
-  interval: 30m
-  spec:
-    chart: external-dns
-    version: "*"
-    sourceRef:
-      kind: HelmRepository
-      name: bitnami
-    interval: 12h
+  interval: 12h
+  chart: external-dns
+  version: "*"
+  sourceRef:
+    kind: HelmRepository
+    name: bitnami
   values:
     provider: pihole
     policy: upsert-only
