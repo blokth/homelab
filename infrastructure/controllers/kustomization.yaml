@@ -5,5 +5,5 @@ resources:
   - longhorn.yaml
   - metallb.yaml
   - pihole.yaml
-  - ingress-nginx.yaml
+  - traefik.yaml
   - external-dns.yaml 
