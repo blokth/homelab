@@ -37,6 +37,8 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
         matchRule: Host(`traefik.home`)
     providers:
       kubernetesCRD:
