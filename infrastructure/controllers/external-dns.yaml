@@ -1,12 +1,12 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: bitnami
+  name: external-dns
   namespace: pihole-system
 spec:
   interval: 24h
-  url: https://charts.bitnami.com/bitnami
+  url: oci://registry-1.docker.io/bitnamicharts/external-dns
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -17,15 +17,10 @@ spec:
   dependsOn:
     - name: pihole
   interval: 30m
-  chart:
-    spec:
-      chart: external-dns
-      version: "*"
-      sourceRef:
-        kind: OCIRepository
-        name: bitnami
-        namespace: pihole-system
-      interval: 12h
+  sourceRef:
+    kind: OCIRepository
+    name: external-dns
+    namespace: pihole-system
   values:
     provider: pihole
     policy: upsert-only
