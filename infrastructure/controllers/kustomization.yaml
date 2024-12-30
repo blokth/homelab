@@ -6,4 +6,4 @@ resources:
   - metallb.yaml
   - pihole.yaml
   - ingress-nginx.yaml
-  - externaldns.yaml 
+  - external-dns.yaml 

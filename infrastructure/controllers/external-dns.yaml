@@ -19,7 +19,7 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: bitnami/external-dns
+      chart: external-dns
       version: "*"
       sourceRef:
         kind: HelmRepository

@@ -24,7 +24,7 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: mojo2600/pihole
+      chart: pihole
       version: "*"
       sourceRef:
         kind: HelmRepository
