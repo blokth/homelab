@@ -8,11 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./services/pihole/docker-compose.nix
-      ./services/traefik/docker-compose.nix
-      ./services/whoami/docker-compose.nix
-      ./services/home-assistant/docker-compose.nix
-      ./services/zigbee2mqtt/docker-compose.nix
     ];
 
   nix = {
@@ -41,18 +36,11 @@
     #useXkbConfig = true; # use xkb.options in tty.
   };
 
-  virtualisation.docker = {
-    enable = true;
-    autoPrune.enable = true;
-  };
+  # Fixes for longhorn
+  systemd.tmpfiles.rules = [
+    "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+  ];
   virtualisation.docker.logDriver = "json-file";
-  virtualisation.oci-containers.backend = "docker";
-
-  system.activationScripts.mkLAN = ''
-      if [ -z $(${pkgs.docker}/bin/docker network ls --filter name=^lan$ --format="{{ .Name }}") ] ; then 
-          ${pkgs.docker}/bin/docker network create lan ; 
-      fi
-    '';
 
   services.openiscsi = {
     enable = true;
@@ -77,6 +65,23 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFh6m4qX4U4sYAI+ngMuLACi4pqSz2pNjdPcB8aEzD6k"
     ];
+  };
+
+
+  services.k3s = {
+    enable = true;
+    role = "server";
+    tokenFile = /var/lib/rancher/k3s/server/token;
+    extraFlags = toString ([
+	    "--write-kubeconfig-mode \"0644\""
+	    "--cluster-init"
+	    "--disable servicelb"
+	    "--disable traefik"
+	    "--disable local-storage"
+    ] ++ (if meta.hostname == "perun" then [] else [
+	      "--server https://perun:6443"
+    ]));
+    clusterInit = (meta.hostname == "perun");
   };
 
   # List packages installed in system profile. To search, run:
