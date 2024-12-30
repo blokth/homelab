@@ -3,6 +3,3 @@ services/pihole/dnsmasq.d/*
 services/home-assistant/config/*
 services/zigbee2mqtt/zigbee2mqtt-data/*
 services/zigbee2mqtt/mosquitto-data/*
-!services/zigbee2mqtt/mosquitto-data/mosquitto.conf
-!services/zigbee2mqtt/zigbee2mqtt-data/configuration.yaml
-!services/pihole/pihole/custom.list
