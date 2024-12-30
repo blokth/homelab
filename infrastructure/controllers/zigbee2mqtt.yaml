@@ -16,7 +16,7 @@ metadata:
 spec:
     interval: 5m
     dependsOn:
-      - mqtt
+      - name: mqtt
     chart:
         spec:
             chart: zigbee2mqtt
