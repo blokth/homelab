@@ -6,7 +6,7 @@ metadata:
     namespace: zigbee2mqtt
 spec:
     interval: 10m
-    url: https://charts.zigbee2mqtt.io/index
+    url: https://charts.zigbee2mqtt.io
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
