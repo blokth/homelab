@@ -3,7 +3,7 @@ services:
     container_name: home-assistant
     restart: always
     volumes:
-      - ./config:/config
+      - homeassistant_data:/config
       - /etc/localtime:/etc/localtime:ro
     environment:
       - TZ=Europe/Berlin
@@ -26,3 +26,6 @@ services:
       - "traefik.http.routers.home-assistant.rule=Host(`home.def4alt.com`)"
       - "traefik.http.routers.home-assistant.entrypoints=web"
     image: homeassistant/home-assistant:latest
+
+volumes:
+  homeassistant_data
