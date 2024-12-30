@@ -6,4 +6,6 @@ resources:
   - metallb.yaml
   - pihole.yaml
   - traefik.yaml
-  - external-dns.yaml 
+  - external-dns.yaml
+  - mqtt.yaml
+  - zigbee2mqtt.yaml

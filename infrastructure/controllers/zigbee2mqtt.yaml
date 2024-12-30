@@ -1,0 +1,42 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+    name: zigbee2mqtt
+    namespace: zigbee2mqtt
+spec:
+    interval: 10m
+    url: https://charts.zigbee2mqtt.io/index
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+    name: zigbee2mqtt
+    namespace: zigbee2mqtt
+spec:
+    interval: 5m
+    dependsOn:
+      - mqtt
+    chart:
+        spec:
+            chart: zigbee2mqtt
+            version: '*'
+            sourceRef:
+                kind: HelmRepository
+                name: zigbee2mqtt
+                namespace: zigbee2mqtt
+            interval: 10m
+    values:
+      ingress:
+        enabled: true
+        ingressClassName: "traefik"
+      statefulset:
+        storage:
+          enabled: true
+      zigbee2mqtt:
+        mqtt:
+          server: mqtt://mqtt
+        serial:
+          port: /dev/ttyUSB0
+        advanced:
+          network_key: GENERATE
