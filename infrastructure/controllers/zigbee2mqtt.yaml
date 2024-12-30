@@ -17,6 +17,7 @@ spec:
     interval: 5m
     dependsOn:
       - name: mqtt
+    targetNamespace: zigbee2mqtt
     chart:
         spec:
             chart: zigbee2mqtt
