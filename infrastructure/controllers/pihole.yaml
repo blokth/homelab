@@ -51,3 +51,21 @@ spec:
         metallb.universe.tf/allow-shared-ip: pihole-svc
       type: LoadBalancer
     replicaCount: 1
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pihole
+  namespace: pihole-system
+
+spec:
+  entryPoints:
+    - web
+
+  routes:
+    - match: Host(`pihole.home`)
+      kind: Rule
+      services:
+        - name: pihole
+          port: 80
+
