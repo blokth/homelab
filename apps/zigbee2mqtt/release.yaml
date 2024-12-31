@@ -44,3 +44,4 @@ spec:
         frontend:
           port: 8080
           url: zigbee.home
+        homeassistant: true
