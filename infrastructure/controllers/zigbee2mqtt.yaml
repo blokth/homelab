@@ -39,8 +39,9 @@ spec:
               - path: /api
                 pathType: ImplementationSpecific
       statefulset:
-        enabled: true
-        storageClassName: longhorn
+        storage:
+          enabled: true
+          storageClassName: longhorn
       service:
         port: 8080
       zigbee2mqtt:
