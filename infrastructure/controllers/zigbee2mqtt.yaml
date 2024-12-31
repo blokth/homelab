@@ -46,7 +46,7 @@ spec:
         port: 8080
       zigbee2mqtt:
         mqtt:
-          server: mqtt://mqtt
+          server: mqtt://mqtt-mosquitto
         serial:
           port: /dev/ttyUSB0
           adapter: ember
