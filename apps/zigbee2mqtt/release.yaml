@@ -43,5 +43,4 @@ spec:
           adapter: ember
         frontend:
           port: 8080
-          url: zigbee.home
         homeassistant: true
