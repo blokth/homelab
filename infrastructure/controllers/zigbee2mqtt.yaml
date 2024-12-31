@@ -43,7 +43,7 @@ spec:
           enabled: true
           storageClassName: longhorn
       service:
-        port: 80
+        port: 8080
       zigbee2mqtt:
         mqtt:
           server: mqtt://mqtt
@@ -53,5 +53,3 @@ spec:
         frontend:
           port: 8080
           url: zigbee.home
-        advanced:
-          network_key: GENERATE
