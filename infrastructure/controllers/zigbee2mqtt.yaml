@@ -31,6 +31,8 @@ spec:
       ingress:
         enabled: true
         ingressClassName: "traefik"
+        hosts:
+          - host: zigbee.home
       statefulset:
         enabled: true
         storageClassName: longhorn
@@ -41,8 +43,6 @@ spec:
           port: /dev/ttyUSB0
           adapter: ember
         frontend:
-          port: 8080
-          host: zigbee.home
           url: zigbee.home
         advanced:
           network_key: GENERATE
