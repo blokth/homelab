@@ -33,6 +33,11 @@ spec:
         ingressClassName: "traefik"
         hosts:
           - host: zigbee.home
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+              - path: /api
+                pathType: ImplementationSpecific
       statefulset:
         enabled: true
         storageClassName: longhorn
