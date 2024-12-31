@@ -43,7 +43,7 @@ spec:
           enabled: true
           storageClassName: longhorn
       service:
-        port: 8080
+        port: 80
       zigbee2mqtt:
         mqtt:
           server: mqtt://mqtt
@@ -51,7 +51,7 @@ spec:
           port: /dev/ttyUSB0
           adapter: ember
         frontend:
-          port: 8080
+          port: 80
           url: zigbee.home
         advanced:
           network_key: GENERATE
