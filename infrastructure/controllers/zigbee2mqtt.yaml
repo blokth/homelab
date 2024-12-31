@@ -43,7 +43,7 @@ spec:
           enabled: true
           storageClassName: longhorn
       service:
-        port: 8080
+        port: 80
       zigbee2mqtt:
         mqtt:
           server: mqtt://mqtt
