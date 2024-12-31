@@ -48,6 +48,7 @@ spec:
           port: /dev/ttyUSB0
           adapter: ember
         frontend:
+          port: 80
           url: zigbee.home
         advanced:
           network_key: GENERATE
