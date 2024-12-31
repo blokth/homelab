@@ -35,7 +35,9 @@ spec:
           - host: zigbee.home
             paths:
               - path: /
-                pathType: Prefix
+                pathType: ImplementationSpecific
+              - path: /api
+                pathType: ImplementationSpecific
       statefulset:
         enabled: true
         storageClassName: longhorn
