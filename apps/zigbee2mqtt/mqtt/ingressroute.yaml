@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mqtt
+  namespace: zigbee2mqtt
+spec:
+  entryPoints:
+    - mqtt
+  routes:
+  - kind: Rule
+    match: HostSNI(`*`)
+    services:
+    - kind: Service
+      name: mqtt
+      namespace: zigbee2mqtt
+      port: 1883

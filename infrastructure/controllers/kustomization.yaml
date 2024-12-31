@@ -4,8 +4,4 @@ resources:
   - cert-manager.yaml
   - longhorn.yaml
   - metallb.yaml
-  - pihole.yaml
   - traefik.yaml
-  - external-dns.yaml
-  - mqtt.yaml
-  - zigbee2mqtt.yaml
