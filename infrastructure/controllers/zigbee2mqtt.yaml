@@ -41,7 +41,7 @@ spec:
       statefulset:
         storage:
           enabled: true
-          storageClassName: longhorn
+          existingVolume: zigbee2mqtt-data
       service:
         port: 8080
       zigbee2mqtt:
@@ -55,3 +55,16 @@ spec:
           url: zigbee.home
         advanced:
           network_key: GENERATE
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zigbee2mqtt-data
+  namespace: zigbee2mqtt
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: longhorn
