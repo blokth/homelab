@@ -22,7 +22,7 @@ spec:
           - host: paperless.home
             paths:
               - path: /
-    persistance:
+    persistence:
       data:
         enabled: true
         storageClass: "longhorn"
@@ -34,7 +34,7 @@ spec:
     postgresql:
       enabled: true
       primary:
-        persistance:
+        persistence:
           enabled: true
           storageClass: "longhorn"
           size: 8Gi
