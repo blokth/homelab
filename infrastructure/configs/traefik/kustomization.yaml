@@ -1,33 +1,16 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-metadata:
-  name: traefik
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: "./infrastructure/traefik/controller"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: traefik
-      namespace: traefik-system
+resources:
+  - namespace.yaml
+  - repository.yaml
+  - release.yaml
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
+apiVersion: traefik.io/v1alpha1
+kind: TLSStore
 metadata:
-  name: tlsstore
-  namespace: flux-system
+  name: default
+  namespace: cert-manager
 spec:
-  dependsOn:
-    - name: traefik
-  interval: 5m
-  path: "./infrastructure/traefik/tlsstores"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
+  defaultCertificate:
+    secretName: wildcard-def4alt-tls
