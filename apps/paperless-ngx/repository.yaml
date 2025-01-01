@@ -7,4 +7,4 @@ metadata:
 spec:
   interval: 24h
   type: oci
-  url: oci://ghcr.io/gabe565/charts/paperless-ngx
+  url: oci://ghcr.io/gabe565/charts
