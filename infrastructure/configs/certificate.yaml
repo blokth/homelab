@@ -11,4 +11,4 @@ spec:
     - "*.def4alt.com"
   issuerRef:
     name: cloudflare-issuer
-    kind: Issuer
+    kind: ClusterIssuer
