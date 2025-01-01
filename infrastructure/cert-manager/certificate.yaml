@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: wildcard-def4alt
-  namespace: traefik-system
+  namespace: cert-manager-system
 spec:
   secretName: wildcard-def4alt-tls
   dnsNames:

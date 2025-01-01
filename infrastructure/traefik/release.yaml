@@ -30,7 +30,3 @@ spec:
         exposedPort: 1883
         expose:
           default: true
-    tlsStore:
-      default:
-        defaultCertificate:
-          secretName: wildcard-def4alt-tls
