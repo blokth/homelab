@@ -4,3 +4,4 @@ resources:
   - ./pihole
   - ./zigbee2mqtt
   - ./home-assistant
+  - ./paperless-ngx
