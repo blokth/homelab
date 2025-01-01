@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`home.home`)
+    - match: Host(`home.def4alt.com`)
       kind: Rule
       services:
         - name: home-assistant

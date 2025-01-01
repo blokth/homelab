@@ -22,7 +22,7 @@ spec:
       main:
         enabled: true
         hosts:
-          - host: paperless.home
+          - host: papers.def4alt.com
             paths:
               - path: /
     persistence:

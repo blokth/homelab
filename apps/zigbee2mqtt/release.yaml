@@ -23,7 +23,7 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         hosts:
-          - host: zigbee.home
+          - host: zigbee.def4alt.com
             paths:
               - path: /
                 pathType: ImplementationSpecific

@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-def4alt
+  namespace: traefik-system
+spec:
+  secretName: wildcard-def4alt-tls
+  dnsNames:
+    - "def4alt.com"
+    - "*.def4alt.com"
+  issuerRef:
+    name: cloudflare-issuer
+    kind: Issuer

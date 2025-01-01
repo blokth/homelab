@@ -1,18 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: traefik-system
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: traefik
-  namespace: traefik-system
-spec:
-  interval: 24h
-  url: https://traefik.github.io/charts
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -44,3 +30,7 @@ spec:
         exposedPort: 1883
         expose:
           default: true
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: wildcard-def4alt-tls
