@@ -15,6 +15,9 @@ spec:
         name: gabe565
       interval: 12h
   values:
+    env:
+      PAPERLESS_ADMIN_USER: def4alt
+      PAPERLESS_ADMIN_PASSWORD: changeme
     ingress:
       main:
         enabled: true
