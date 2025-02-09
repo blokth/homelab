@@ -15,41 +15,36 @@ spec:
         name: immich
       interval: 12h
   values:
-    env:
-      PAPERLESS_ADMIN_USER: def4alt
-      PAPERLESS_ADMIN_PASSWORD: changeme
-    ingress:
-      main:
-        enabled: true
-        hosts:
-          - host: papers.def4alt.com
-            paths:
-              - path: /
-    persistence:
-      data:
-        enabled: true
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: 5Gi
-      media:
-        enabled: true
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: 8Gi
-      export:
-        enabled: true
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: 1Gi
-      consume:
-        enabled: true
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: 4Gi
-    postgresql:
+    immich:
+      persistence:
+        library:
+          existingClaim: immich-pvc
+    server:
       enabled: true
-      primary:
-        persistence:
+      ingress:
+        main:
           enabled: true
-          storageClass: "longhorn"
-          size: 8Gi
+          annotations:
+            # proxy-body-size is set to 0 to remove the body limit on file uploads
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+          hosts:
+            - host: immich.def4alt.com
+              paths:
+                - path: "/"
+          tls: []
+
+    machine-learning:
+      enabled: true
+      image:
+        repository: ghcr.io/immich-app/immich-machine-learning
+        pullPolicy: IfNotPresent
+      env:
+        TRANSFORMERS_CACHE: /cache
+      persistence:
+        cache:
+          enabled: true
+          size: 10Gi
+          # Optional: Set this to pvc to avoid downloading the ML models every start.
+          type: emptyDir
+          accessMode: ReadWriteMany
+          storageClass: longhorn
