@@ -14,7 +14,3 @@ spec:
         kind: HelmRepository
         name: longhorn
         namespace: flux-system
-  values:
-    service:
-      ui:
-        type: LoadBalancer
