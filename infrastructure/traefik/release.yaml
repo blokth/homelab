@@ -5,19 +5,21 @@ metadata:
   name: traefik
   namespace: traefik
 spec:
-  releaseName: traefik
+  interval: 5m
   chart:
     spec:
       chart: traefik
-      version: "v1.x"
+      version: "v34.x"
       sourceRef:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
   values:
     ingressClass: traefik
-    api:
-      insecure: true
+    additionalArguments:
+      - "--providers.kubernetesingress.ingressclass=traefik"
+    service:
+      type: LoadBalancer
     ports:
       web:
         port: 80

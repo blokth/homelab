@@ -8,8 +8,12 @@ spec:
   chart:
     spec:
       chart: longhorn
-      version: 1.x
+      version: v1.x
       sourceRef:
         kind: HelmRepository
         name: longhorn
         namespace: flux-system
+  values:
+    service:
+      ui:
+        type: LoadBalancer
