@@ -77,6 +77,8 @@
 	    "--cluster-init"
 	    "--disable servicelb"
 	    "--disable traefik"
+      "--flunnel-backend=none"
+      "--disable-network-policy"
 	    "--disable local-storage"
     ] ++ (if meta.hostname == "perun" then [] else [
 	      "--server https://perun:6443"
