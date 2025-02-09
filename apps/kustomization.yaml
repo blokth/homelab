@@ -5,3 +5,4 @@ resources:
   - ./zigbee2mqtt
   - ./home-assistant
   - ./paperless-ngx
+  - ./immich
