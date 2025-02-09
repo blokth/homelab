@@ -31,8 +31,8 @@ spec:
                 pathType: ImplementationSpecific
       statefulset:
         storage:
-          enabled: true
-          storageClassName: longhorn
+          enabled: false
+          existingVolume: "zigbee2mqtt-pvc"
       service:
         port: 8080
       zigbee2mqtt:

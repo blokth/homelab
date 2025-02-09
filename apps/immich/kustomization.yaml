@@ -1,10 +1,7 @@
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: zigbee2mqtt
+namespace: immich
 resources:
   - namespace.yaml
-  - ./mqtt
   - repository.yaml
-  - pvc.yaml
   - release.yaml
