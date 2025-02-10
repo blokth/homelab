@@ -5,7 +5,8 @@ metadata:
   name: traefik
   namespace: flux-system
 spec:
-  dependsOn: metallb
+  dependsOn:
+    - metallb
 resources:
   - namespace.yaml
   - repository.yaml
