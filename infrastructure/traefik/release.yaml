@@ -15,15 +15,17 @@ spec:
         name: traefik
         namespace: flux-system
   values:
-    ingressClass: traefik
-    additionalArguments:
-      - "--providers.kubernetesingress.ingressclass=traefik"
-    service:
-      type: LoadBalancer
+    ingressClass:
+      name: traefik
+      isDefaultClass: true
+    providers:
+      kubernetesCRD:
+        enabled: true
+      kubernetesIngress:
+        enabled: true
     ports:
-      web:
-        port: 80
-        expose: true
-      websecure:
-        port: 443
-        expose: true
+      mqtt:
+        port: 1883
+        exposedPort: 1883
+        expose:
+          default: true
