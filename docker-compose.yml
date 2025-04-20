@@ -1,0 +1,51 @@
+services:
+  broker:
+    image: redis:7.4
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      # --- TEMPORARY PLACEHOLDER - MUST BE SECURED LATER ---
+      POSTGRES_PASSWORD: changeme
+
+  webserver:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+      - broker
+    ports:
+      - "8000:8000"
+    volumes:
+      - data:/usr/src/paperless/data
+      - media:/usr/src/paperless/media
+      - consume:/usr/src/paperless/consume
+      - export:/usr/src/paperless/export
+    environment:
+      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_DBENGINE: postgresql
+      PAPERLESS_DBHOST: db
+      PAPERLESS_DBPORT: 5432
+      PAPERLESS_DBNAME: paperless
+      PAPERLESS_DBUSER: paperless
+      # --- TEMPORARY PLACEHOLDER - MUST BE SECURED LATER ---
+      PAPERLESS_DBPASS: changeme
+      # --- TEMPORARY PLACEHOLDER - MUST BE SECURED LATER ---
+      PAPERLESS_SECRET_KEY: changeme
+      PAPERLESS_TIME_ZONE: Europe/Berlin
+
+volumes:
+  data:
+  media:
+  consume:
+  export:
+  postgres_data:
+  redisdata:
