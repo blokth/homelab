@@ -42,6 +42,28 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.logDriver = "json-file";
 
+  systemd.services.docker-network-traefik-public = {
+    description = "Create the 'traefik-public' docker network";
+    # Use 'oneshot' type as it performs a single action and exits
+    serviceConfig.Type = "oneshot";
+    # Keep the service as "active" after execution, useful for dependency ordering
+    serviceConfig.RemainAfterExit = true;
+    # Execute the docker network create command.
+    # '|| ${pkgs.coreutils}/bin/true' prevents the service from failing if the network already exists.
+    serviceConfig.ExecStart = "${pkgs.docker}/bin/docker network create traefik-public || ${pkgs.coreutils}/bin/true";
+    # Optional: Ensure this runs after the main docker service is up
+    after = [ "docker.service" ];
+    # Ensure this service is wanted by the compose root target, promoting early startup
+    wantedBy = [ systemd.targets."docker-compose-networks-root" ];
+  };
+
+  systemd.targets."docker-compose-networks-root" = {
+    # This needs to match the name used in your networks.nix file
+    # We add dependencies from outside the file here
+    requires = [ "docker-network-traefik-public.service" ];
+    after = [ "docker-network-traefik-public.service" ];
+  };
+
   environment.etc."pihole/custom.list".text = ''
     192.168.88.192 pihole.blokth.com
     192.168.88.189 papers.blokth.com
