@@ -61,19 +61,22 @@
     enable = true;
 
     # Define entry points where Traefik listens for traffic
-    entryPoints = {
-      http = {
-        address = ":80";
+    staticConfigOptions = {
+      entryPoints = {
+        http = {
+          address = ":80";
+        };
+      };
+
+      providers = {
+        docker = {
+          enable = true;
+          network = "traefik-public";
+          exposedByDefault = false; # Only expose containers with traefik.enable=true label
+        };
       };
     };
 
-    providers = {
-      docker = {
-        enable = true;
-        network = "traefik-public";
-        exposedByDefault = false; # Only expose containers with traefik.enable=true label
-      };
-    };
 
     # Allow Traefik to access the Docker/Podman socket
     # Adjust group based on your runtime (docker or podman)
