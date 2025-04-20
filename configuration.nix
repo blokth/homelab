@@ -50,7 +50,8 @@
     serviceConfig.RemainAfterExit = true;
     # Execute the docker network create command.
     # '|| ${pkgs.coreutils}/bin/true' prevents the service from failing if the network already exists.
-    serviceConfig.ExecStart = "${pkgs.docker}/bin/docker network create traefik-public || ${pkgs.coreutils}/bin/true";
+    #
+    serviceConfig.ExecStart = "${pkgs.runtimeShell} -c '${pkgs.docker}/bin/docker network create traefik-public || ${pkgs.coreutils}/bin/true'";
     # Optional: Ensure this runs after the main docker service is up
     after = [ "docker.service" ];
     # Ensure this service is wanted by the compose root target, promoting early startup
