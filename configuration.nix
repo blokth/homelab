@@ -36,19 +36,10 @@
     #useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # Fixes for longhorn
-  systemd.tmpfiles.rules = [
-    "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
-  ];
   virtualisation.docker.logDriver = "json-file";
 
-  services.openiscsi = {
-    enable = true;
-    name = "iqn.2016-04.com.open-iscsi:${meta.hostname}";
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.def4alt = {
+  users.users.blokth = {
     isNormalUser = true;
     extraGroups = [ 
       "wheel"
@@ -65,23 +56,6 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFh6m4qX4U4sYAI+ngMuLACi4pqSz2pNjdPcB8aEzD6k"
     ];
-  };
-
-
-  services.k3s = {
-    enable = true;
-    role = "server";
-    tokenFile = /var/lib/rancher/k3s/server/token;
-    extraFlags = toString ([
-	    "--write-kubeconfig-mode \"0644\""
-	    "--cluster-init"
-	    "--disable servicelb"
-	    "--disable traefik"
-	    "--disable local-storage"
-    ] ++ (if meta.hostname == "perun" then [] else [
-	      "--server https://perun:6443"
-    ]));
-    clusterInit = (meta.hostname == "perun");
   };
 
   # List packages installed in system profile. To search, run:
@@ -101,7 +75,7 @@
   # networking.firewall.allowedTCPPorts = [ 80 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
