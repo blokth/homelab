@@ -41,6 +41,14 @@ services:
       # --- TEMPORARY PLACEHOLDER - MUST BE SECURED LATER ---
       PAPERLESS_SECRET_KEY: changeme
       PAPERLESS_TIME_ZONE: Europe/Berlin
+    networks:
+      - traefik-public
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.paperless-http.entrypoints: "http"
+      # !!! CHANGE THIS DOMAIN !!! Replace with the domain you want to use for Paperless-ngx
+      traefik.http.routers.paperless-http.rule: "Host(`papers.blokth.com`)"
+      traefik.http.services.paperless-service.loadbalancer.server.port: "8000"
 
 volumes:
   data:
@@ -49,3 +57,7 @@ volumes:
   export:
   postgres_data:
   redisdata:
+
+networks:
+  traefik-public:
+    external: true

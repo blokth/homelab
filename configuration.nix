@@ -8,7 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./docker-compose.nix
+      ./paperless-compose.nix
+      ./pihole-compose.nix
     ];
 
   nix = {
@@ -37,7 +38,49 @@
     #useXkbConfig = true; # use xkb.options in tty.
   };
 
+  virtualisation.docker.enable = true;
   virtualisation.docker.logDriver = "json-file";
+
+  environment.etc."pihole/custom.list".text = ''
+    192.168.88.192 pihole.blokth.com
+    192.168.88.189 papers.blokth.com
+  '';
+
+  virtualisation.docker.networks.traefik-public = {
+    name = "traefik-public";
+    driver = "bridge";
+    ipam = {
+      driver = "default";
+      config = [
+        { subnet = "172.20.0.0/24"; gateway = "172.20.0.1"; }
+      ];
+    };
+  };
+
+  services.traefik = {
+    enable = true;
+
+    # Define entry points where Traefik listens for traffic
+    entryPoints = {
+      http = {
+        address = ":80";
+      };
+    };
+
+    providers = {
+      docker = {
+        enable = true;
+        network = "traefik-public";
+        exposedByDefault = false; # Only expose containers with traefik.enable=true label
+      };
+    };
+
+    # Allow Traefik to access the Docker/Podman socket
+    # Adjust group based on your runtime (docker or podman)
+    serviceUser = "traefik"; # User Traefik runs as
+    serviceGroup = "docker"; # Group with access to the Docker socket
+    extraGroups = [ "docker" ]; # Add the user to the group
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.perun = {
@@ -68,6 +111,8 @@
      git
   ];
 
+
+
   # List services that you want to enable:
 
   services.openssh.enable = true;
@@ -75,10 +120,13 @@
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 
     80
-    8000
+    443
+    53
     22
   ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [ 
+    53
+  ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
