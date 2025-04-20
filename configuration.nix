@@ -54,7 +54,7 @@
     # Optional: Ensure this runs after the main docker service is up
     after = [ "docker.service" ];
     # Ensure this service is wanted by the compose root target, promoting early startup
-    wantedBy = [ systemd.targets."docker-compose-networks-root" ];
+    wantedBy = [ "docker-compose-networks-root.target" ];
   };
 
   systemd.targets."docker-compose-networks-root" = {
