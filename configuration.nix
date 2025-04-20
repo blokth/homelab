@@ -60,7 +60,6 @@
 
       providers = {
         docker = {
-          enabled = true;
           network = "traefik-public";
           exposedByDefault = false; # Only expose containers with traefik.enable=true label
         };
