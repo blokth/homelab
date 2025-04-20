@@ -6,6 +6,7 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
+      - "80:80/tcp"
     environment:
       TZ: 'Europe/Berlin'
       # !!! CHANGE THIS PASSWORD !!! Use a strong, unique password
