@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./networks.nix
       ./paperless-compose.nix
       ./pihole-compose.nix
     ];
@@ -45,17 +46,6 @@
     192.168.88.192 pihole.blokth.com
     192.168.88.189 papers.blokth.com
   '';
-
-  virtualisation.docker.networks.traefik-public = {
-    name = "traefik-public";
-    driver = "bridge";
-    ipam = {
-      driver = "default";
-      config = [
-        { subnet = "172.20.0.0/24"; gateway = "172.20.0.1"; }
-      ];
-    };
-  };
 
   services.traefik = {
     enable = true;
