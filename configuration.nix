@@ -39,7 +39,7 @@
   virtualisation.docker.logDriver = "json-file";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.blokth = {
+  users.users.perun = {
     isNormalUser = true;
     extraGroups = [ 
       "wheel"
