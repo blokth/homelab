@@ -77,12 +77,7 @@
       };
     };
 
-
-    # Allow Traefik to access the Docker/Podman socket
-    # Adjust group based on your runtime (docker or podman)
-    serviceUser = "traefik"; # User Traefik runs as
-    serviceGroup = "docker"; # Group with access to the Docker socket
-    extraGroups = [ "docker" ]; # Add the user to the group
+    group = "docker";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
