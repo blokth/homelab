@@ -64,12 +64,9 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
      vim
-     cifs-utils
-     nfs-utils
+     dig
      git
   ];
-
-
 
   # List services that you want to enable:
 
