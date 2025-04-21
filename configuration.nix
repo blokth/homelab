@@ -16,6 +16,7 @@ in
       ./pihole-compose.nix
       ./paperless-compose.nix
       ./zigbee2mqtt-compose.nix
+      ./homeassistant-compose.nix
     ];
 
   nix = {
