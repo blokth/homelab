@@ -54,9 +54,7 @@ in
 
   virtualisation.docker = {
     enable = true;
-    settings = {
-      iptables = false;
-    };
+    extraOptions = "--iptables=false";
   };
 
   systemd.services.docker-create-network-proxy = {
