@@ -17,11 +17,12 @@
       "DB_HOSTNAME" = "immich_postgres";
       "DB_PASSWORD" = "changeme_immich_db_password";
       "DB_USERNAME" = "immich";
+      "IMMICH_MACHINE_LEARNING_URL" = "http://immich_machine_learning:3003";
       "REDIS_HOSTNAME" = "immich_redis";
       "TZ" = "Europe/Berlin";
     };
     volumes = [
-      "immich_immich_ml_models:/cache:rw"
+      "immich_immich_model_cache:/cache:rw"
     ];
     log-driver = "journald";
     extraOptions = [
@@ -38,59 +39,11 @@
     };
     after = [
       "docker-network-immich_immich_internal.service"
-      "docker-volume-immich_immich_ml_models.service"
+      "docker-volume-immich_immich_model_cache.service"
     ];
     requires = [
       "docker-network-immich_immich_internal.service"
-      "docker-volume-immich_immich_ml_models.service"
-    ];
-    partOf = [
-      "docker-compose-immich-root.target"
-    ];
-    wantedBy = [
-      "docker-compose-immich-root.target"
-    ];
-  };
-  virtualisation.oci-containers.containers."immich_microservices" = {
-    image = "ghcr.io/immich-app/immich-server:release";
-    environment = {
-      "DB_DATABASE_NAME" = "immich";
-      "DB_HOSTNAME" = "immich_postgres";
-      "DB_PASSWORD" = "changeme_immich_db_password";
-      "DB_USERNAME" = "immich";
-      "IMMICH_MACHINE_LEARNING_URL" = "http://immich_machine_learning:3003";
-      "REDIS_HOSTNAME" = "immich_redis";
-      "TZ" = "Europe/Berlin";
-    };
-    volumes = [
-      "/etc/localtime:/etc/localtime:ro"
-      "immich_immich_upload:/usr/src/app/upload:rw"
-    ];
-    cmd = [ "start.sh" "microservices" ];
-    dependsOn = [
-      "immich_postgres"
-      "immich_redis"
-    ];
-    log-driver = "journald";
-    extraOptions = [
-      "--network-alias=immich-microservices"
-      "--network=immich_immich_internal"
-    ];
-  };
-  systemd.services."docker-immich_microservices" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-      RestartMaxDelaySec = lib.mkOverride 90 "1m";
-      RestartSec = lib.mkOverride 90 "100ms";
-      RestartSteps = lib.mkOverride 90 9;
-    };
-    after = [
-      "docker-network-immich_immich_internal.service"
-      "docker-volume-immich_immich_upload.service"
-    ];
-    requires = [
-      "docker-network-immich_immich_internal.service"
-      "docker-volume-immich_immich_upload.service"
+      "docker-volume-immich_immich_model_cache.service"
     ];
     partOf = [
       "docker-compose-immich-root.target"
@@ -100,18 +53,20 @@
     ];
   };
   virtualisation.oci-containers.containers."immich_postgres" = {
-    image = "tensorchord/pgvecto.rs:pg16";
+    image = "docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52";
     environment = {
       "POSTGRES_DB" = "immich";
+      "POSTGRES_INITDB_ARGS" = "--data-checksums";
       "POSTGRES_PASSWORD" = "changeme_immich_db_password";
       "POSTGRES_USER" = "immich";
     };
     volumes = [
       "immich_immich_pgdata:/var/lib/postgresql/data:rw"
     ];
+    cmd = [ "postgres" "-c" "shared_preload_libraries=vectors.so" "-c" "search_path=\"$user\", public, vectors" "-c" "logging_collector=on" "-c" "max_wal_size=2GB" "-c" "shared_buffers=512MB" "-c" "wal_compression=on" ];
     log-driver = "journald";
     extraOptions = [
-      "--network-alias=immich_postgres"
+      "--network-alias=database"
       "--network=immich_immich_internal"
     ];
   };
@@ -138,13 +93,13 @@
     ];
   };
   virtualisation.oci-containers.containers."immich_redis" = {
-    image = "redis:7.4-alpine";
+    image = "docker.io/redis:6.2-alpine@sha256:148bb5411c184abd288d9aaed139c98123eeb8824c5d3fce03cf721db58066d8";
     volumes = [
       "immich_immich_redis_data:/data:rw"
     ];
     log-driver = "journald";
     extraOptions = [
-      "--network-alias=immich_redis"
+      "--network-alias=redis"
       "--network=immich_immich_internal"
     ];
   };
@@ -244,14 +199,14 @@
   };
 
   # Volumes
-  systemd.services."docker-volume-immich_immich_ml_models" = {
+  systemd.services."docker-volume-immich_immich_model_cache" = {
     path = [ pkgs.docker ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
     };
     script = ''
-      docker volume inspect immich_immich_ml_models || docker volume create immich_immich_ml_models
+      docker volume inspect immich_immich_model_cache || docker volume create immich_immich_model_cache
     '';
     partOf = [ "docker-compose-immich-root.target" ];
     wantedBy = [ "docker-compose-immich-root.target" ];
