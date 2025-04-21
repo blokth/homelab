@@ -1,0 +1,33 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    restart: unless-stopped
+    volumes:
+      - homeassistant_config:/config
+      - /run/udev:/run/udev:ro
+    environment:
+      - TZ=Europe/Berlin
+    networks:
+      - proxy
+    # Required for hardware discovery etc.
+    privileged: true
+    labels:
+      traefik.enable: "true"
+      
+      # Define the main HTTPS router for Home Assistant
+      traefik.http.routers.homeassistant-secure.entrypoints: "websecure"
+      traefik.http.routers.homeassistant-secure.rule: "Host(`home.blokth.com`)"
+      traefik.http.routers.homeassistant-secure.tls: "true" # Enable TLS for this router
+      traefik.http.routers.homeassistant-secure.service: "homeassistant-service"
+
+      # Define the service (points to the container)
+      traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
+
+volumes:
+  homeassistant_config:
+    # No driver needed, Docker default local driver will be used
+
+networks:
+  proxy:
+    external: true 

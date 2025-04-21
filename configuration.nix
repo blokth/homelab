@@ -88,6 +88,8 @@ in
     text = ''
       address=/pihole.blokth.com/192.168.88.189
       address=/papers.blokth.com/192.168.88.189
+      address=/home.blokth.com/192.168.88.189
+      address=/zigbee.blokth.com/192.168.88.189
     '';
     mode = "0444"; # Read-only for all
   };
@@ -95,7 +97,7 @@ in
   # Zigbee2MQTT configuration file managed by Nix
   environment.etc."zigbee2mqtt/configuration.yaml" = {
     text = ''
-      homeassistant: false
+      homeassistant: true
       permit_join: true
       mqtt:
         base_topic: zigbee2mqtt
