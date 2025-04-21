@@ -12,6 +12,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./pihole-compose.nix
+      ./paperless-compose.nix
     ];
 
   nix = {
@@ -83,6 +84,7 @@ in
   environment.etc."dnsmasq.d/02-custom-dns.conf" = {
     text = ''
       address=/pihole.blokth.com/192.168.88.189
+      address=/papers.blokth.com/192.168.88.189
     '';
     mode = "0444"; # Read-only for all
   };

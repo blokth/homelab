@@ -105,8 +105,12 @@
     ];
     labels = {
       "traefik.enable" = "true";
-      "traefik.http.routers.paperless-http.entrypoints" = "http";
+      "traefik.http.routers.paperless-http.entrypoints" = "web";
       "traefik.http.routers.paperless-http.rule" = "Host(`papers.blokth.com`)";
+      "traefik.http.routers.pihole-secure.entrypoints" = "websecure";
+      "traefik.http.routers.pihole-secure.rule" = "Host(`papers.blokth.com`)";
+      "traefik.http.routers.pihole-secure.service" = "paperless-service";
+      "traefik.http.routers.pihole-secure.tls" = "true";
       "traefik.http.services.paperless-service.loadbalancer.server.port" = "8000";
     };
     dependsOn = [
@@ -116,7 +120,7 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=webserver"
-      "--network=traefik-public"
+      "--network=proxy"
     ];
   };
   systemd.services."docker-paperless-webserver" = {
