@@ -11,6 +11,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./pihole-compose.nix
     ];
 
   nix = {
@@ -26,7 +27,19 @@ in
   networking.hostName = meta.hostname; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true;
+  networking.networkmanager.dns = "none";
+  networking.networkmanager.unmanaged = [ "interface-name:docker*" "interface-name:br-*" ];
+
+  networking.useDHCP = false;
+  networking.dhcpcd.enable = false;
+
+  networking.nameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+    "8.8.8.8"
+    "8.8.4.4"
+  ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -39,9 +52,14 @@ in
     #useXkbConfig = true; # use xkb.options in tty.
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    settings = {
+      iptables = false;
+    };
+  };
 
-   systemd.services.docker-create-network-proxy = {
+  systemd.services.docker-create-network-proxy = {
     description = "Create Docker proxy network";
     after = [ "docker.service" ];
     requires = [ "docker.service" ];
@@ -74,6 +92,8 @@ in
 
   services.traefik = {
     enable = true;
+
+
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
