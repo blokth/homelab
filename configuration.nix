@@ -104,6 +104,7 @@ in
         # password: my_password
       serial:
         port: /dev/ttyACM0
+        adapter: ember
       frontend:
         port: 8080
       # devices:
