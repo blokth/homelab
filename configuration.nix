@@ -28,18 +28,10 @@ in
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
-  networking.networkmanager.dns = "none";
   networking.networkmanager.unmanaged = [ "interface-name:docker*" "interface-name:br-*" ];
 
   networking.useDHCP = false;
   networking.dhcpcd.enable = false;
-
-  networking.nameservers = [
-    "1.1.1.1"
-    "1.0.0.1"
-    "8.8.8.8"
-    "8.8.4.4"
-  ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -94,7 +86,7 @@ in
 
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.perun = {
     isNormalUser = true;
     extraGroups = [ 
@@ -103,7 +95,7 @@ in
       "dialout"
       "tty"
       "uucp"
-    ]; # Enable ‘sudo’ for the user.
+    ]; # Enable 'sudo' for the user.
     packages = with pkgs; [
       tree
     ];
