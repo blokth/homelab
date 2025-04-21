@@ -19,18 +19,9 @@
       "/etc/homeassistant/configuration.yaml:/config/configuration.yaml:ro"
       "/var/lib/homeassistant:/config:rw"
     ];
-    labels = {
-      "traefik.enable" = "true";
-      "traefik.http.routers.homeassistant-secure.entrypoints" = "websecure";
-      "traefik.http.routers.homeassistant-secure.rule" = "Host(`home.blokth.com`)";
-      "traefik.http.routers.homeassistant-secure.service" = "homeassistant-service";
-      "traefik.http.routers.homeassistant-secure.tls" = "true";
-      "traefik.http.services.homeassistant-service.loadbalancer.server.port" = "8123";
-    };
     log-driver = "journald";
     extraOptions = [
-      "--network-alias=homeassistant"
-      "--network=proxy"
+      "--network=host"
     ];
   };
   systemd.services."docker-homeassistant" = {

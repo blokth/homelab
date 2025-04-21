@@ -8,20 +8,4 @@ services:
       - /etc/homeassistant/configuration.yaml:/config/configuration.yaml:ro # Mount specific Nix config file read-only
     environment:
       - TZ=Europe/Berlin
-    networks:
-      - proxy
-    labels:
-      traefik.enable: "true"
-      
-      # Define the main HTTPS router for Home Assistant
-      traefik.http.routers.homeassistant-secure.entrypoints: "websecure"
-      traefik.http.routers.homeassistant-secure.rule: "Host(`home.blokth.com`)"
-      traefik.http.routers.homeassistant-secure.tls: "true" # Enable TLS for this router
-      traefik.http.routers.homeassistant-secure.service: "homeassistant-service"
-
-      # Define the service (points to the container)
-      traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
-
-networks:
-  proxy:
-    external: true 
+    network_mode: "host"

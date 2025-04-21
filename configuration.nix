@@ -175,6 +175,22 @@ in
         };
       };
     };
+
+    dynamicConfigOptions = {
+      http.routers = {
+        homeassistant = {
+          rule = "Host(`home.blokth.com`)";
+          service = "homeassistant";
+          entryPoints = ["websecure"];
+          tls = {};
+        };
+      };
+      http.services = {
+        homeassistant.loadBalancer.servers = [
+          { url = "https://192.168.88.189:8123"; }
+        ];
+      };
+    };
   };
 
   services.mosquitto = {
