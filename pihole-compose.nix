@@ -13,7 +13,7 @@
   virtualisation.oci-containers.containers."pihole" = {
     image = "pihole/pihole:latest";
     environment = {
-      "FTLCONF_LOCAL_IPV4" = "192.168.88.192";
+      "FTLCONF_LOCAL_IPV4" = "192.168.88.189";
       "PIHOLE_DNS_" = "1.1.1.1;1.0.0.1";
       "TZ" = "Europe/Berlin";
       "WEBPASSWORD" = "changeme";
@@ -24,10 +24,8 @@
       "/etc/pihole/custom.list:/etc/pihole/custom.list:rw"
     ];
     ports = [
-      "192.168.88.192:53:53/tcp"
-      "192.168.88.192:53:53/udp"
-      "192.168.88.192:80:80/tcp"
-      "192.168.88.192:443:443/tcp"
+      "53:53/tcp"
+      "53:53/udp"
     ];
     labels = {
       "traefik.enable" = "true";
@@ -39,7 +37,6 @@
     extraOptions = [
       "--mac-address=02:42:ac:11:00:02"
       "--network-alias=pihole"
-      "--network=pihole_pihole_network"
       "--network=traefik-public"
     ];
   };
@@ -50,33 +47,12 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
-    after = [
-      "docker-network-pihole_pihole_network.service"
-    ];
-    requires = [
-      "docker-network-pihole_pihole_network.service"
-    ];
     partOf = [
       "docker-compose-pihole-root.target"
     ];
     wantedBy = [
       "docker-compose-pihole-root.target"
     ];
-  };
-
-  # Networks
-  systemd.services."docker-network-pihole_pihole_network" = {
-    path = [ pkgs.docker ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStop = "docker network rm -f pihole_pihole_network";
-    };
-    script = ''
-      docker network inspect pihole_pihole_network || docker network create pihole_pihole_network --driver=bridge --subnet=192.168.88.0/24
-    '';
-    partOf = [ "docker-compose-pihole-root.target" ];
-    wantedBy = [ "docker-compose-pihole-root.target" ];
   };
 
   # Root service

@@ -66,7 +66,7 @@
   };
 
   environment.etc."pihole/custom.list".text = ''
-    192.168.88.192 pihole.blokth.com
+    192.168.88.189 pihole.blokth.com
     192.168.88.189 papers.blokth.com
   '';
 
