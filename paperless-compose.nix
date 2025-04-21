@@ -93,6 +93,7 @@
       "PAPERLESS_REDIS" = "redis://broker:6379";
       "PAPERLESS_SECRET_KEY" = "changeme";
       "PAPERLESS_TIME_ZONE" = "Europe/Berlin";
+      "PAPERLESS_URL" = "https://papers.blokth.com";
     };
     volumes = [
       "paperless_consume:/usr/src/paperless/consume:rw"

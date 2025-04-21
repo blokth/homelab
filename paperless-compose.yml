@@ -43,6 +43,8 @@ services:
       # --- TEMPORARY PLACEHOLDER - MUST BE SECURED LATER ---
       PAPERLESS_SECRET_KEY: changeme
       PAPERLESS_TIME_ZONE: Europe/Berlin
+      # Add the publicly accessible origin for CSRF protection
+      PAPERLESS_URL: "https://papers.blokth.com"
     networks:
       - proxy
       - paperless_internal
