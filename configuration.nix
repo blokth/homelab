@@ -6,6 +6,8 @@
 
 let
   dockerBin = "${pkgs.docker}/bin/docker";
+  zigbee2mqttUser = "1000";
+  zigbee2mqttGroup = "100";
 in
 {
   imports =
@@ -89,6 +91,34 @@ in
     '';
     mode = "0444"; # Read-only for all
   };
+
+  # Zigbee2MQTT configuration file managed by Nix
+  environment.etc."zigbee2mqtt/configuration.yaml" = {
+    text = ''
+      homeassistant: false
+      permit_join: true
+      mqtt:
+        base_topic: zigbee2mqtt
+        server: 'mqtt://mosquitto'
+        # user: my_user
+        # password: my_password
+      serial:
+        port: /dev/ttyACM0
+      frontend:
+        port: 8080
+      # devices:
+      #   '0x123456789abcdef0':
+      #     friendly_name: my_switch
+      # advanced:
+      #   log_level: info
+    '';
+    mode = "0644";
+  };
+
+  # Setup persistent data directory for Zigbee2MQTT
+  systemd.tmpfiles.rules = [
+    "d /var/lib/zigbee2mqtt ${zigbee2mqttUser} ${zigbee2mqttGroup} - -"
+  ];
 
   services.traefik = {
     enable = true;

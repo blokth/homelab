@@ -16,8 +16,9 @@
       "TZ" = "Europe/Berlin";
     };
     volumes = [
-      "/Users/andrii/source/homelab/data:/app/data:rw"
+      "/etc/zigbee2mqtt/configuration.yaml:/app/data/configuration.yaml:rw"
       "/run/udev:/run/udev:ro"
+      "/var/lib/zigbee2mqtt:/app/data:rw"
     ];
     labels = {
       "traefik.enable" = "true";

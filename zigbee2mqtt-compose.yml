@@ -4,7 +4,8 @@ services:
         image: ghcr.io/koenkk/zigbee2mqtt
         restart: unless-stopped
         volumes:
-            - ./data:/app/data
+            - /etc/zigbee2mqtt/configuration.yaml:/app/data/configuration.yaml
+            - /var/lib/zigbee2mqtt:/app/data
             - /run/udev:/run/udev:ro
         environment:
             - TZ=Europe/Berlin
