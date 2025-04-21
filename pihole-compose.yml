@@ -29,7 +29,7 @@ services:
       traefik.http.services.pihole-service.loadbalancer.server.port: "80"
 
 networks:
-  traefik-public:
+  proxy:
     external: true
   pihole_net:
     driver: macvlan

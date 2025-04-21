@@ -78,6 +78,12 @@ in
     mode = "0555";
   };
 
+  environment.etc."pihole/custom.list" = {
+    text = ''
+      192.168.88.189 pihole.blokth.com
+    '';
+  };
+
   services.traefik = {
     enable = true;
 
