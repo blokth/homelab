@@ -94,6 +94,7 @@ in
       address=/papers.blokth.com/192.168.88.189
       address=/home.blokth.com/192.168.88.189
       address=/zigbee.blokth.com/192.168.88.189
+      address=/photos.blokth.com/192.168.88.189
     '';
     mode = "0444"; # Read-only for all
   };

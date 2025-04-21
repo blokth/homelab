@@ -100,7 +100,7 @@
     ];
   };
   virtualisation.oci-containers.containers."immich_postgres" = {
-    image = "postgres:16-alpine";
+    image = "tensorchord/pgvecto.rs:pg16";
     environment = {
       "POSTGRES_DB" = "immich";
       "POSTGRES_PASSWORD" = "changeme_immich_db_password";
