@@ -17,7 +17,7 @@ services:
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
       - /etc/pihole/custom.list:/etc/pihole/custom.list
     networks:
-      traefik-public:
+      proxy:
       pihole_net:
         ipv4_address: 192.168.88.192
     cap_add:
