@@ -28,8 +28,10 @@ in
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
-  networking.networkmanager.dns = "default";
+  networking.networkmanager.dns = "none";
   networking.networkmanager.unmanaged = [ "interface-name:docker*" "interface-name:br-*" ];
+
+  networking.nameservers = [ "192.168.88.192" ]; # Point host DNS to Pi-hole container
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
