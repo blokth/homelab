@@ -26,8 +26,6 @@ services:
     depends_on:
       - db
       - broker
-    ports:
-      - "8000:8000"
     volumes:
       - data:/usr/src/paperless/data
       - media:/usr/src/paperless/media

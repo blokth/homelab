@@ -100,9 +100,6 @@
       "paperless_export:/usr/src/paperless/export:rw"
       "paperless_media:/usr/src/paperless/media:rw"
     ];
-    ports = [
-      "8000:8000/tcp"
-    ];
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.paperless-http.entrypoints" = "web";
