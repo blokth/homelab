@@ -37,6 +37,8 @@
       "--cap-add=NET_ADMIN"
       "--cap-add=SYS_NICE"
       "--cap-add=SYS_TIME"
+      "--dns=1.0.0.1"
+      "--dns=1.1.1.1"
       "--network-alias=pihole"
       "--network=proxy"
     ];
