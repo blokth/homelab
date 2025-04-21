@@ -30,8 +30,6 @@ in
   networking.networkmanager.enable = true;
   networking.networkmanager.unmanaged = [ "interface-name:docker*" "interface-name:br-*" ];
 
-  networking.useDHCP = true;
-
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
