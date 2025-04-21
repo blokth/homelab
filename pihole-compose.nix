@@ -38,7 +38,7 @@
       "--cap-add=NET_ADMIN"
       "--network-alias=pihole"
       "--network=pihole_pihole_net"
-      "--network=traefik-public"
+      "--network=proxy"
     ];
   };
   systemd.services."docker-pihole" = {
