@@ -28,6 +28,7 @@ in
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
+  networking.networkmanager.dns = "default";
   networking.networkmanager.unmanaged = [ "interface-name:docker*" "interface-name:br-*" ];
 
   # Set your time zone.
