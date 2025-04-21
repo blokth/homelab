@@ -13,7 +13,7 @@
   virtualisation.oci-containers.containers."pihole" = {
     image = "pihole/pihole:latest";
     environment = {
-      "FTLCONF_LOCAL_IPV4" = "192.168.88.189";
+      "DNSMASQ_LISTENING" = "all";
       "PIHOLE_DNS_" = "1.1.1.1;1.0.0.1";
       "TZ" = "Europe/Berlin";
       "WEBPASSWORD" = "changeme";
@@ -35,7 +35,6 @@
     };
     log-driver = "journald";
     extraOptions = [
-      "--mac-address=02:42:ac:11:00:02"
       "--network-alias=pihole"
       "--network=traefik-public"
     ];
