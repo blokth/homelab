@@ -36,8 +36,51 @@
     #useXkbConfig = true; # use xkb.options in tty.
   };
 
+  virtualisation.docker.enable = true;
+
+   systemd.services.docker-create-network-proxy = {
+    description = "Create Docker proxy network";
+    after = [ "docker.service" ];
+    requires = [ "docker.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = ''/etc/docker/create-proxy-network.sh'';
+    };
+  };
+
+  environment.etc."docker/create-proxy-network.sh".text = ''
+    #!/bin/sh
+    set -e
+
+    if ! docker network inspect proxy >/dev/null 2>&1; then
+      docker network create \
+        --driver bridge \
+        --subnet 172.20.0.0/16 \
+        --gateway 172.20.0.1 \
+        proxy
+    fi
+  '';
+
   services.traefik = {
     enable = true;
+    
+    staticConfigOptions = {
+      entryPoints = {
+        http = {
+          address = ":80";
+        };
+      };
+
+      providers = {
+        docker = {
+          network = "proxy";
+          exposedByDefault = false; # Only expose containers with traefik.enable=true label
+        };
+      };
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
