@@ -67,20 +67,6 @@
   services.traefik = {
     enable = true;
     
-    staticConfigOptions = {
-      entryPoints = {
-        http = {
-          address = ":80";
-        };
-      };
-
-      providers = {
-        docker = {
-          network = "proxy";
-          exposedByDefault = false; # Only expose containers with traefik.enable=true label
-        };
-      };
-    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
