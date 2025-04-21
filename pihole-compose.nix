@@ -71,7 +71,7 @@
       ExecStop = "docker network rm -f pihole_pihole_net";
     };
     script = ''
-      docker network inspect pihole_pihole_net || docker network create pihole_pihole_net --driver=macvlan --opt=parent=eno1 --subnet=192.168.88.0/24 --ip-range=192.168.88.192/26
+      docker network inspect pihole_pihole_net || docker network create pihole_pihole_net --driver=macvlan --opt=parent=eno1 --subnet=192.168.88.0/24 --ip-range=192.168.88.192/26 --gateway=192.168.88.1
     '';
     partOf = [ "docker-compose-pihole-root.target" ];
     wantedBy = [ "docker-compose-pihole-root.target" ];
