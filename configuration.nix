@@ -4,6 +4,9 @@
 
 {  pkgs, meta, ... }:
 
+let
+  dockerBin = "${pkgs.docker}/bin/docker";
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -58,8 +61,8 @@
     #!/bin/sh
     set -e
 
-    if ! docker network inspect proxy >/dev/null 2>&1; then
-      docker network create \
+    if ! ${dockerBin} network inspect proxy >/dev/null 2>&1; then
+      ${dockerBin} network create \
         --driver bridge \
         --subnet 172.20.0.0/16 \
         --gateway 172.20.0.1 \
@@ -71,7 +74,6 @@
 
   services.traefik = {
     enable = true;
-    
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
