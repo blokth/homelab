@@ -14,11 +14,11 @@
     image = "ghcr.io/immich-app/immich-machine-learning:release";
     environment = {
       "DB_DATABASE_NAME" = "immich";
-      "DB_HOSTNAME" = "immich_postgres";
+      "DB_HOSTNAME" = "database";
       "DB_PASSWORD" = "changeme_immich_db_password";
       "DB_USERNAME" = "immich";
       "IMMICH_MACHINE_LEARNING_URL" = "http://immich_machine_learning:3003";
-      "REDIS_HOSTNAME" = "immich_redis";
+      "REDIS_HOSTNAME" = "redis";
       "TZ" = "Europe/Berlin";
     };
     volumes = [
@@ -129,12 +129,12 @@
     image = "ghcr.io/immich-app/immich-server:release";
     environment = {
       "DB_DATABASE_NAME" = "immich";
-      "DB_HOSTNAME" = "immich_postgres";
+      "DB_HOSTNAME" = "database";
       "DB_PASSWORD" = "changeme_immich_db_password";
       "DB_USERNAME" = "immich";
       "IMMICH_MACHINE_LEARNING_URL" = "http://immich_machine_learning:3003";
       "JWT_SECRET" = "changeme_immich_jwt_secret";
-      "REDIS_HOSTNAME" = "immich_redis";
+      "REDIS_HOSTNAME" = "redis";
       "TZ" = "Europe/Berlin";
     };
     volumes = [

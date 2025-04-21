@@ -10,11 +10,11 @@ services:
       - immich_upload:/usr/src/app/upload # Use named volume defined below
       - /etc/localtime:/etc/localtime:ro
     environment: # Added environment variables
-      - DB_HOSTNAME=immich_postgres
+      - DB_HOSTNAME=database
       - DB_USERNAME=immich
       - DB_PASSWORD=changeme_immich_db_password # --- CHANGE THIS ---
       - DB_DATABASE_NAME=immich
-      - REDIS_HOSTNAME=immich_redis
+      - REDIS_HOSTNAME=redis
       - JWT_SECRET=changeme_immich_jwt_secret # --- CHANGE THIS ---
       - IMMICH_MACHINE_LEARNING_URL=http://immich_machine_learning:3003
       - TZ=Europe/Berlin
@@ -43,11 +43,11 @@ services:
     volumes:
       - immich_model_cache:/cache # Use renamed volume
     environment: # Added environment variables
-      - DB_HOSTNAME=immich_postgres
+      - DB_HOSTNAME=database
       - DB_USERNAME=immich
       - DB_PASSWORD=changeme_immich_db_password # --- CHANGE THIS ---
       - DB_DATABASE_NAME=immich
-      - REDIS_HOSTNAME=immich_redis
+      - REDIS_HOSTNAME=redis
       - IMMICH_MACHINE_LEARNING_URL=http://immich_machine_learning:3003
       - TZ=Europe/Berlin
     restart: always
