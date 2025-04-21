@@ -8,9 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./networks.nix
-      ./paperless-compose.nix
-      ./pihole-compose.nix
     ];
 
   nix = {
