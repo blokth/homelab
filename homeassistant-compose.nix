@@ -16,7 +16,6 @@
       "TZ" = "Europe/Berlin";
     };
     volumes = [
-      "/run/udev:/run/udev:ro"
       "homeassistant_homeassistant_config:/config:rw"
     ];
     labels = {
@@ -31,7 +30,6 @@
     extraOptions = [
       "--network-alias=homeassistant"
       "--network=proxy"
-      "--privileged"
     ];
   };
   systemd.services."docker-homeassistant" = {

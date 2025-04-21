@@ -5,13 +5,10 @@ services:
     restart: unless-stopped
     volumes:
       - homeassistant_config:/config
-      - /run/udev:/run/udev:ro
     environment:
       - TZ=Europe/Berlin
     networks:
       - proxy
-    # Required for hardware discovery etc.
-    privileged: true
     labels:
       traefik.enable: "true"
       
