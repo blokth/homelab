@@ -4,6 +4,8 @@ services:
     restart: unless-stopped
     volumes:
       - redisdata:/data
+    networks:
+      - paperless_internal
 
   db:
     image: postgres:17
@@ -15,6 +17,8 @@ services:
       POSTGRES_USER: paperless
       # --- TEMPORARY PLACEHOLDER - MUST BE SECURED LATER ---
       POSTGRES_PASSWORD: changeme
+    networks:
+      - paperless_internal
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
@@ -43,6 +47,7 @@ services:
       PAPERLESS_TIME_ZONE: Europe/Berlin
     networks:
       - proxy
+      - paperless_internal
     labels:
       traefik.enable: "true"
       traefik.http.routers.pihole-secure.entrypoints: "websecure"
@@ -65,3 +70,5 @@ volumes:
 networks:
   proxy:
     external: true
+  paperless_internal:
+    driver: bridge

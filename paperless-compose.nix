@@ -18,7 +18,7 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=broker"
-      "--network=paperless_default"
+      "--network=paperless_paperless_internal"
     ];
   };
   systemd.services."docker-paperless-broker" = {
@@ -29,11 +29,11 @@
       RestartSteps = lib.mkOverride 90 9;
     };
     after = [
-      "docker-network-paperless_default.service"
+      "docker-network-paperless_paperless_internal.service"
       "docker-volume-paperless_redisdata.service"
     ];
     requires = [
-      "docker-network-paperless_default.service"
+      "docker-network-paperless_paperless_internal.service"
       "docker-volume-paperless_redisdata.service"
     ];
     partOf = [
@@ -56,7 +56,7 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=db"
-      "--network=paperless_default"
+      "--network=paperless_paperless_internal"
     ];
   };
   systemd.services."docker-paperless-db" = {
@@ -67,11 +67,11 @@
       RestartSteps = lib.mkOverride 90 9;
     };
     after = [
-      "docker-network-paperless_default.service"
+      "docker-network-paperless_paperless_internal.service"
       "docker-volume-paperless_postgres_data.service"
     ];
     requires = [
-      "docker-network-paperless_default.service"
+      "docker-network-paperless_paperless_internal.service"
       "docker-volume-paperless_postgres_data.service"
     ];
     partOf = [
@@ -120,6 +120,7 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=webserver"
+      "--network=paperless_paperless_internal"
       "--network=proxy"
     ];
   };
@@ -131,12 +132,14 @@
       RestartSteps = lib.mkOverride 90 9;
     };
     after = [
+      "docker-network-paperless_paperless_internal.service"
       "docker-volume-paperless_consume.service"
       "docker-volume-paperless_data.service"
       "docker-volume-paperless_export.service"
       "docker-volume-paperless_media.service"
     ];
     requires = [
+      "docker-network-paperless_paperless_internal.service"
       "docker-volume-paperless_consume.service"
       "docker-volume-paperless_data.service"
       "docker-volume-paperless_export.service"
@@ -151,15 +154,15 @@
   };
 
   # Networks
-  systemd.services."docker-network-paperless_default" = {
+  systemd.services."docker-network-paperless_paperless_internal" = {
     path = [ pkgs.docker ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStop = "docker network rm -f paperless_default";
+      ExecStop = "docker network rm -f paperless_paperless_internal";
     };
     script = ''
-      docker network inspect paperless_default || docker network create paperless_default
+      docker network inspect paperless_paperless_internal || docker network create paperless_paperless_internal --driver=bridge
     '';
     partOf = [ "docker-compose-paperless-root.target" ];
     wantedBy = [ "docker-compose-paperless-root.target" ];
