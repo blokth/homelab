@@ -8,6 +8,8 @@ let
   dockerBin = "${pkgs.docker}/bin/docker";
   zigbee2mqttUser = "1000";
   zigbee2mqttGroup = "100";
+  homeassistantUser = "0";
+  homeassistantGroup = "0";
 in
 {
   imports =
@@ -122,7 +124,31 @@ in
   # Setup persistent data directory for Zigbee2MQTT
   systemd.tmpfiles.rules = [
     "d /var/lib/zigbee2mqtt ${zigbee2mqttUser} ${zigbee2mqttGroup} - -"
+    "d /var/lib/homeassistant ${homeassistantUser} ${homeassistantGroup} - -"
   ];
+
+  # Home Assistant configuration file managed by Nix
+  environment.etc."homeassistant/configuration.yaml" = {
+    target = "/var/lib/homeassistant/configuration.yaml";
+    text = ''
+      # Includes common integrations (frontend, api, etc.)
+      default_config:
+
+      # Configure HTTP for Traefik reverse proxy
+      http:
+        use_x_forwarded_for: true
+        trusted_proxies:
+          - 172.20.0.0/16  # Docker proxy network
+          - 127.0.0.1
+
+      # Example of other integrations you might add later:
+      # tts:
+      #   - platform: google_translate
+    '';
+    mode = "0644"; # Writable by root (HA container user)
+    user = homeassistantUser;
+    group = homeassistantGroup;
+  };
 
   services.traefik = {
     enable = true;

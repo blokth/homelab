@@ -4,7 +4,7 @@ services:
     image: "ghcr.io/home-assistant/home-assistant:stable"
     restart: unless-stopped
     volumes:
-      - homeassistant_config:/config
+      - /var/lib/homeassistant:/config
     environment:
       - TZ=Europe/Berlin
     networks:
@@ -20,10 +20,6 @@ services:
 
       # Define the service (points to the container)
       traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
-
-volumes:
-  homeassistant_config:
-    # No driver needed, Docker default local driver will be used
 
 networks:
   proxy:

@@ -16,7 +16,7 @@
       "TZ" = "Europe/Berlin";
     };
     volumes = [
-      "homeassistant_homeassistant_config:/config:rw"
+      "/var/lib/homeassistant:/config:rw"
     ];
     labels = {
       "traefik.enable" = "true";
@@ -39,32 +39,12 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
-    after = [
-      "docker-volume-homeassistant_homeassistant_config.service"
-    ];
-    requires = [
-      "docker-volume-homeassistant_homeassistant_config.service"
-    ];
     partOf = [
       "docker-compose-homeassistant-root.target"
     ];
     wantedBy = [
       "docker-compose-homeassistant-root.target"
     ];
-  };
-
-  # Volumes
-  systemd.services."docker-volume-homeassistant_homeassistant_config" = {
-    path = [ pkgs.docker ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = ''
-      docker volume inspect homeassistant_homeassistant_config || docker volume create homeassistant_homeassistant_config
-    '';
-    partOf = [ "docker-compose-homeassistant-root.target" ];
-    wantedBy = [ "docker-compose-homeassistant-root.target" ];
   };
 
   # Root service
