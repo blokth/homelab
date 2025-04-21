@@ -18,6 +18,10 @@ services:
       - /etc/pihole/custom.list:/etc/pihole/custom.list
     networks:
       traefik-public:
+      pihole_net:
+        ipv4_address: 192.168.88.192
+    cap_add:
+        - NET_ADMIN
     labels:
       traefik.enable: "true"
       traefik.http.routers.pihole-http.entrypoints: "http"
@@ -27,3 +31,12 @@ services:
 networks:
   traefik-public:
     external: true
+  pihole_net:
+    driver: macvlan
+    driver_opts:
+      parent: eno1
+    ipam:
+      config:
+        - subnet: 192.168.88.0/24
+          gateway: 192.168.88.1
+          ip_range: 192.168.88.192/26
