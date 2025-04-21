@@ -129,7 +129,6 @@ in
 
   # Home Assistant configuration file managed by Nix
   environment.etc."homeassistant/configuration.yaml" = {
-    target = "/var/lib/homeassistant/configuration.yaml";
     text = ''
       # Includes common integrations (frontend, api, etc.)
       default_config:
@@ -145,9 +144,7 @@ in
       # tts:
       #   - platform: google_translate
     '';
-    mode = "0644"; # Writable by root (HA container user)
-    user = homeassistantUser;
-    group = homeassistantGroup;
+    mode = "0444"; # Read-only (standard Nix store permissions)
   };
 
   services.traefik = {
