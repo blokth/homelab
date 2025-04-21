@@ -13,6 +13,7 @@ in
       ./hardware-configuration.nix
       ./pihole-compose.nix
       ./paperless-compose.nix
+      ./zigbee2mqtt-compose.nix
     ];
 
   nix = {
@@ -118,6 +119,17 @@ in
     };
   };
 
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        acl = [ "pattern readwrite #" ];
+        omitPasswordAuth = true;
+        settings.allow_anonymous = true;
+      }
+    ];
+  };
+
   users.groups.docker.members = [ "perun" "traefik" ];
 
   # Define a user account. Don't forget to set a password with 'passwd'.
@@ -158,6 +170,7 @@ in
     443
     53
     22
+    1883
   ];
   networking.firewall.allowedUDPPorts = [ 
     53

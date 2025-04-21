@@ -1,0 +1,30 @@
+services:
+    zigbee2mqtt:
+        container_name: zigbee2mqtt
+        image: ghcr.io/koenkk/zigbee2mqtt
+        restart: unless-stopped
+        volumes:
+            - ./data:/app/data
+            - /run/udev:/run/udev:ro
+        environment:
+            - TZ=Europe/Berlin
+        devices:
+            # Make sure this matched your adapter location
+            - /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_7e901fb4640eef119316ba2a433abf1e-if00-port0:/dev/ttyACM0
+        networks:
+            - proxy
+        labels:
+            traefik.enable: "true"
+            
+            # Define the main HTTPS router for Paperless
+            traefik.http.routers.paperless-secure.entrypoints: "websecure"
+            traefik.http.routers.paperless-secure.rule: "Host(`zigbee.blokth.com`)"
+            traefik.http.routers.paperless-secure.tls: "true" # Enable TLS for this router
+            traefik.http.routers.paperless-secure.service: "zigbee-service"
+
+            # Define the service (points to the container)
+            traefik.http.services.paperless-service.loadbalancer.server.port: "8080"
+
+networks:
+  proxy:
+    external: true
