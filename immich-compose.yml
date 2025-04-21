@@ -63,7 +63,9 @@ services:
       - immich_redis_data:/data
     restart: always
     networks:
-      - immich_internal
+      immich_internal: # Configure network connection
+        aliases:
+          - redis # Explicitly add service name as alias
     # healthcheck: # Removed
     #   test: redis-cli ping || exit 1
 
@@ -83,7 +85,9 @@ services:
       postgres -c shared_preload_libraries=vectors.so -c 'search_path="$$user", public, vectors' -c logging_collector=on -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on
     restart: always
     networks:
-      - immich_internal
+      immich_internal: # Configure network connection
+        aliases:
+          - database # Explicitly add service name as alias
     # healthcheck: # Removed
 
 volumes:

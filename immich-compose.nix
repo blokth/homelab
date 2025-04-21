@@ -67,6 +67,7 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=database"
+      "--network-alias=database"
       "--network=immich_immich_internal"
     ];
   };
@@ -99,6 +100,7 @@
     ];
     log-driver = "journald";
     extraOptions = [
+      "--network-alias=redis"
       "--network-alias=redis"
       "--network=immich_immich_internal"
     ];
