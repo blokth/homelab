@@ -26,11 +26,15 @@ services:
       FTLCONF_dns_listeningMode: 'all' # Using new v6 variable name
       # Upstream DNS servers (Pi-hole will use these to forward client requests)
       FTLCONF_dns_upstreams: "1.1.1.1;1.0.0.1" # Using new v6 variable name, kept user's servers
+      # Tell FTL to load configs from /etc/dnsmasq.d/
+      FTLCONF_misc_etc_dnsmasq_d: 'true'
     volumes:
       # For persisting Pi-hole's databases and common configuration file
       - './etc-pihole:/etc/pihole'
-      # Custom list volume kept from user config
-      - /etc/pihole/custom.list:/etc/pihole/custom.list
+      # Mount dnsmasq.d directory from host
+      - /etc/dnsmasq.d:/etc/dnsmasq.d:ro
+      # Remove custom list volume mount
+      # - /etc/pihole/custom.list:/etc/pihole/custom.list
       # Uncomment the below if you have custom dnsmasq config files that you want to persist. Needs environment variable FTLCONF_misc_etc_dnsmasq_d: 'true'
       #- './etc-dnsmasq.d:/etc/dnsmasq.d' # Commented out per guide's fresh start recommendation
     networks:

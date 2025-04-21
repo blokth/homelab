@@ -15,12 +15,13 @@
     environment = {
       "FTLCONF_dns_listeningMode" = "all";
       "FTLCONF_dns_upstreams" = "1.1.1.1;1.0.0.1";
+      "FTLCONF_misc_etc_dnsmasq_d" = "true";
       "FTLCONF_webserver_api_password" = "changeme";
       "TZ" = "Europe/Berlin";
     };
     volumes = [
       "/Users/andrii/source/homelab/etc-pihole:/etc/pihole:rw"
-      "/etc/pihole/custom.list:/etc/pihole/custom.list:rw"
+      "/etc/dnsmasq.d:/etc/dnsmasq.d:ro"
     ];
     ports = [
       "53:53/tcp"

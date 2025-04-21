@@ -79,10 +79,12 @@ in
     mode = "0555";
   };
 
-  environment.etc."pihole/custom.list" = {
+  # Add custom DNS via dnsmasq config
+  environment.etc."dnsmasq.d/02-custom-dns.conf" = {
     text = ''
-      192.168.88.189 pihole.blokth.com
+      address=/pihole.blokth.com/192.168.88.189
     '';
+    mode = "0444"; # Read-only for all
   };
 
   services.traefik = {
