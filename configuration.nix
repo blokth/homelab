@@ -99,7 +99,7 @@ in
       permit_join: true
       mqtt:
         base_topic: zigbee2mqtt
-        server: 'mqtt://mosquitto'
+        server: 'mqtt://172.20.0.1'
         # user: my_user
         # password: my_password
       serial:
