@@ -46,7 +46,6 @@ in
 
   virtualisation.docker = {
     enable = true;
-    extraOptions = "--iptables=false";
   };
 
   systemd.services.docker-create-network-proxy = {
@@ -136,8 +135,6 @@ in
   ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
-  networking.firewall.enableForwarding = true; # Allow forwarding for container traffic
-
   
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
