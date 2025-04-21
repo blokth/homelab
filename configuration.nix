@@ -92,8 +92,18 @@ in
 
     staticConfigOptions = {
       entryPoints = {
-        http = {
+        web = {
           address = ":80";
+          # Define the redirect middleware for http
+          http.redirections.entryPoint = {
+            to = "websecure";
+            scheme = "https";
+            permanent = true;
+          };
+        };
+        websecure = {
+          address = ":443";
+          http.tls = {}; # Enable basic TLS, Traefik generates default cert
         };
       };
 

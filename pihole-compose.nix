@@ -29,8 +29,13 @@
     ];
     labels = {
       "traefik.enable" = "true";
-      "traefik.http.routers.pihole-http.entrypoints" = "http";
+      "traefik.http.routers.pihole-http.entrypoints" = "web";
       "traefik.http.routers.pihole-http.rule" = "Host(`pihole.blokth.com`)";
+      "traefik.http.routers.pihole-http.service" = "pihole-service";
+      "traefik.http.routers.pihole-secure.entrypoints" = "websecure";
+      "traefik.http.routers.pihole-secure.rule" = "Host(`pihole.blokth.com`)";
+      "traefik.http.routers.pihole-secure.service" = "pihole-service";
+      "traefik.http.routers.pihole-secure.tls" = "true";
       "traefik.http.services.pihole-service.loadbalancer.server.port" = "80";
     };
     log-driver = "journald";
