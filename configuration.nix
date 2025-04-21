@@ -19,7 +19,6 @@ in
       ./paperless-compose.nix
       ./zigbee2mqtt-compose.nix
       ./homeassistant-compose.nix
-      ./immich-compose.nix
     ];
 
   nix = {
