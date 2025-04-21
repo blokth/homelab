@@ -17,13 +17,13 @@ services:
             traefik.enable: "true"
             
             # Define the main HTTPS router for Paperless
-            traefik.http.routers.paperless-secure.entrypoints: "websecure"
-            traefik.http.routers.paperless-secure.rule: "Host(`zigbee.blokth.com`)"
-            traefik.http.routers.paperless-secure.tls: "true" # Enable TLS for this router
-            traefik.http.routers.paperless-secure.service: "zigbee-service"
+            traefik.http.routers.zigbee-secure.entrypoints: "websecure"
+            traefik.http.routers.zigbee-secure.rule: "Host(`zigbee.blokth.com`)"
+            traefik.http.routers.zigbee-secure.tls: "true" # Enable TLS for this router
+            traefik.http.routers.zigbee-secure.service: "zigbee-service"
 
             # Define the service (points to the container)
-            traefik.http.services.paperless-service.loadbalancer.server.port: "8080"
+            traefik.http.services.zigbee-service.loadbalancer.server.port: "8080"
 
 networks:
   proxy:

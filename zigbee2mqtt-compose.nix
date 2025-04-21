@@ -21,11 +21,11 @@
     ];
     labels = {
       "traefik.enable" = "true";
-      "traefik.http.routers.paperless-secure.entrypoints" = "websecure";
-      "traefik.http.routers.paperless-secure.rule" = "Host(`zigbee.blokth.com`)";
-      "traefik.http.routers.paperless-secure.service" = "zigbee-service";
-      "traefik.http.routers.paperless-secure.tls" = "true";
-      "traefik.http.services.paperless-service.loadbalancer.server.port" = "8080";
+      "traefik.http.routers.zigbee-secure.entrypoints" = "websecure";
+      "traefik.http.routers.zigbee-secure.rule" = "Host(`zigbee.blokth.com`)";
+      "traefik.http.routers.zigbee-secure.service" = "zigbee-service";
+      "traefik.http.routers.zigbee-secure.tls" = "true";
+      "traefik.http.services.zigbee-service.loadbalancer.server.port" = "8080";
     };
     log-driver = "journald";
     extraOptions = [
