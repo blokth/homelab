@@ -13,13 +13,12 @@
   virtualisation.oci-containers.containers."pihole" = {
     image = "pihole/pihole:latest";
     environment = {
-      "DNSMASQ_LISTENING" = "all";
-      "PIHOLE_DNS_" = "1.1.1.1;1.0.0.1";
+      "FTLCONF_dns_listeningMode" = "all";
+      "FTLCONF_dns_upstreams" = "1.1.1.1;1.0.0.1";
+      "FTLCONF_webserver_api_password" = "changeme";
       "TZ" = "Europe/Berlin";
-      "WEBPASSWORD" = "changeme";
     };
     volumes = [
-      "/Users/andrii/source/homelab/etc-dnsmasq.d:/etc/dnsmasq.d:rw"
       "/Users/andrii/source/homelab/etc-pihole:/etc/pihole:rw"
       "/etc/pihole/custom.list:/etc/pihole/custom.list:rw"
     ];
@@ -36,8 +35,9 @@
     log-driver = "journald";
     extraOptions = [
       "--cap-add=NET_ADMIN"
+      "--cap-add=SYS_NICE"
+      "--cap-add=SYS_TIME"
       "--network-alias=pihole"
-      "--network=pihole_pihole_net"
       "--network=proxy"
     ];
   };
@@ -48,33 +48,12 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
-    after = [
-      "docker-network-pihole_pihole_net.service"
-    ];
-    requires = [
-      "docker-network-pihole_pihole_net.service"
-    ];
     partOf = [
       "docker-compose-pihole-root.target"
     ];
     wantedBy = [
       "docker-compose-pihole-root.target"
     ];
-  };
-
-  # Networks
-  systemd.services."docker-network-pihole_pihole_net" = {
-    path = [ pkgs.docker ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStop = "docker network rm -f pihole_pihole_net";
-    };
-    script = ''
-      docker network inspect pihole_pihole_net || docker network create pihole_pihole_net --driver=macvlan --opt=parent=eno1 --subnet=192.168.88.0/24 --ip-range=192.168.88.192/26 --gateway=192.168.88.1
-    '';
-    partOf = [ "docker-compose-pihole-root.target" ];
-    wantedBy = [ "docker-compose-pihole-root.target" ];
   };
 
   # Root service

@@ -31,7 +31,7 @@ in
   networking.networkmanager.dns = "none";
   networking.networkmanager.unmanaged = [ "interface-name:docker*" "interface-name:br-*" ];
 
-  networking.nameservers = [ "192.168.88.192" ]; # Point host DNS to Pi-hole container
+  networking.nameservers = [ "127.0.0.1" ]; # Point host DNS to itself (Docker forwards to Pi-hole)
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -135,7 +135,7 @@ in
     53
   ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   
   # Copy the NixOS configuration file and link it from the resulting system
