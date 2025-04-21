@@ -53,7 +53,8 @@
     };
   };
 
-  environment.etc."docker/create-proxy-network.sh".text = ''
+  environment.etc."docker/create-proxy-network.sh" = {
+    text = ''
     #!/bin/sh
     set -e
 
@@ -65,6 +66,8 @@
         proxy
     fi
   '';
+    mode = "0555";
+  };
 
   services.traefik = {
     enable = true;
