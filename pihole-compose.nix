@@ -24,8 +24,10 @@
       "/etc/pihole/custom.list:/etc/pihole/custom.list:rw"
     ];
     ports = [
-      "53:53/tcp"
-      "53:53/udp"
+      "192.168.88.192:53:53/tcp"
+      "192.168.88.192:53:53/udp"
+      "192.168.88.192:80:80/tcp"
+      "192.168.88.192:443:443/tcp"
     ];
     labels = {
       "traefik.enable" = "true";
