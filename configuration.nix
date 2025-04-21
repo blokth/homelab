@@ -135,7 +135,7 @@ in
     53
   ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = true;
+  networking.firewall.enable = false;
 
   
   # Copy the NixOS configuration file and link it from the resulting system
