@@ -50,16 +50,12 @@ services:
     labels:
       # Keep user's Traefik labels
       traefik.enable: "true"
+      
       # Define the main router for HTTPS traffic
       traefik.http.routers.pihole-secure.entrypoints: "websecure"
       traefik.http.routers.pihole-secure.rule: "Host(`pihole.blokth.com`)"
       traefik.http.routers.pihole-secure.tls: "true" # Enable TLS for this router
       traefik.http.routers.pihole-secure.service: "pihole-service"
-      
-      # Define the router for HTTP traffic (just redirects)
-      traefik.http.routers.pihole-http.entrypoints: "web"
-      traefik.http.routers.pihole-http.rule: "Host(`pihole.blokth.com`)"
-      traefik.http.routers.pihole-http.service: "pihole-service"
 
       # Define the service (points to the container)
       traefik.http.services.pihole-service.loadbalancer.server.port: "80"
