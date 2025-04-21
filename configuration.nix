@@ -48,6 +48,8 @@
       Type = "oneshot";
       RemainAfterExit = true;
       ExecStart = ''/etc/docker/create-proxy-network.sh'';
+      User = "perun";
+      Group = "docker";
     };
   };
 
