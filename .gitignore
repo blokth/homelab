@@ -1,5 +1,0 @@
-services/pihole/pihole/*
-services/pihole/dnsmasq.d/*
-services/home-assistant/config/*
-services/zigbee2mqtt/zigbee2mqtt-data/*
-services/zigbee2mqtt/mosquitto-data/*

@@ -138,13 +138,9 @@ in
       http:
         use_x_forwarded_for: true
         trusted_proxies:
+          - 192.168.88.189
           - 172.20.0.0/16  # Docker proxy network
           - 127.0.0.1
-          - 192.168.88.189
-
-      # Example of other integrations you might add later:
-      # tts:
-      #   - platform: google_translate
     '';
     mode = "0444"; # Read-only (standard Nix store permissions)
   };
